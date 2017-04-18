@@ -20,16 +20,25 @@ Random also plays an important and significant role in this game. Make sure your
 Finally, nothing should be “pre-bundled” package. This should be a custom creation. If there is a question, consult with your instructor.
 Grade Breakdown
 
-Video Presentation …….……………….……………….……………….……………….……………….……………… 5%
-Table Presentation ……………….…………….……………….……………….……………….………………………..10%
-Documentation ……………….……………….……………….……………….……………….………….……………….10%
-Ease of Use ……………….……………….……………….……………….……………….……………….…………………15%
-Game detail close to original …………………………………………………………………………………………..10%
-Attractiveness (no explanation needed) ………………….……….……………….……………….…………..15%
-Code ……………….……………….……………….……………….……………….……………………………………….….15%
-Database setup .……….……………….……………….……………….……………….…………………………………..5%
-Peer Evaluation ………………………………….……………….……………….……………….……………………....15%
-Thoughtful Add-ons……………….……………….……………….……………….……………….……………………+10%
+Video Presentation 5%
+
+Table Presentation 10%
+
+Documentation 10%
+
+Ease of Use 15%
+
+Game detail close to original 10%
+
+Attractiveness (no explanation needed) 15%
+
+Code 15%
+
+Database setup 5%
+
+Peer Evaluation 15%
+
+Thoughtful Add-ons +10%
 
 Some details in scoring
 
