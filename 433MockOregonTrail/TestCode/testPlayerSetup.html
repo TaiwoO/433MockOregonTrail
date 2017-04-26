@@ -1,0 +1,79 @@
+<!-- This is just a sample of how we can use JS/Jquery/JSON together to make the game -->
+
+<!DOCTYPE html>
+<html>
+	<head> 
+		<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+        <link rel="stylesheet" href="../Resources/css/main.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+        <script type="text/javascript" src= "../Resources/js/main.js"></script> 
+        <title>Oregon Trail</title>
+	</head>
+
+	<body>
+        <h1 id="titlecard">THE OREGON TRAIL</h1>
+        <div id="bar"></div>
+        <br>
+            <div id="startMenu">
+            <p>You may:</p>
+            <ol>
+                <li>Travel the trail</li>
+                <li>Learn about the trail</li>
+                <li>See the Oregon Top 10</li>
+                <li>Turn sound off</li>
+                <li>Choose Management Options</li>
+                <li>End</li>
+            </ol>
+            <form>
+                What is your choice? <input type="text" id="userSubmit"/>
+            </form>
+            <p id="result"></p>
+        <br></div>
+        <div id="bar"></div>
+
+        <div hidden id="profChoiceDisplay">
+		<p> Many kinds of people made the trip to Oregon.
+		<br>
+		You may:
+			<ol>
+			  <li>Be a banker from Boston</li>
+			  <li>Be a carpenter from Ohio</li>
+			  <li>Be a farmer from Illinois</li>
+			  <li>Find out the differences between these choices (Not implemented)</li>
+			</ol>
+		</p>
+		<input type="number" id="jobChoiceID" name="jobChoice" min="1" max="3">
+	</div>
+
+	<div hidden id="nameChoiceDisplay">
+		<h2> What is the first name of the wagon leader? </h2>
+		<input type="text" id="wagonLeaderID" name="wagonLeader" maxlength="10">
+	</div>
+
+	<div hidden id="partyChoiceDisplay">
+		<h3> What are the first names of the four other members in your party? </h3>
+		<ol start="1">
+			<li id="partyLead"> </li>
+			<li> <input type="text" id="partyMbr2ID" name="partyMbr2" maxlength="10"> </li>
+			<li> <input type="text" id="partyMbr3ID" name="partyMbr3" maxlength="10"> </li>
+			<li> <input type="text" id="partyMbr4ID" name="partyMbr4" maxlength="10"> </li>
+			<li> <input type="text" id="partyMbr5ID" name="partyMbr5" maxlength="10"> </li>
+		</ol>
+	</div>
+
+	<div hidden id="monthChoiceDisplay">
+		<h4> It is 1848. Your jumping off place for Oregon is Independence, Missouri. <br>
+			You must decided which month to leave Independence. 
+		</h4>
+		<ol>
+			<li>March</li>
+			<li>April</li>
+			<li>May</li>
+			<li>June</li>
+			<li>July</li>
+			<li>Ask for adivce (not implemented</li>
+		</ol>
+		<input type="number" id="monthChoiceID" name="monthChoice" min="1" max="6">
+	</div>
+	</body>
+</html>

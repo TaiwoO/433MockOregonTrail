@@ -1,0 +1,35 @@
+body {
+    font-family: "Courier New", Courier, monospace;
+    color: white;
+    background-color: black;
+    font-weight: bold;
+}
+
+#bar {
+    background-color: brown;
+    position:absolute;
+    height: 2%;
+    left: 0;
+    right: 0;
+}
+
+#menu {
+    margin: 0 auto;
+}
+
+#titlecard {
+    text-align: center;
+}
+
+#userSubmit {
+    background-color: black;
+    border: none;
+    color: white;
+    font-family: "Courier New", Courier, monospace;
+    font-weight: bold;
+    font-size: medium;
+}
+
+#userSubmit:focus {
+    outline:none;
+}
