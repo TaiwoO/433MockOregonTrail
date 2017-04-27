@@ -56,18 +56,18 @@ App.Displayer.showDisplay_ChooseProfession = function () {
     $(document).ready(function () {
 
         $("#main").html(
-            "<h1> Welcome to Oregon Trail (Testing) </h1> \
-		<p> Many kinds of people made the trip to Oregon. \
-		<br> \
-		You may:  \
-			<ol> \
-			  <li>Be a banker from Boston</li> \
-			  <li>Be a carpenter from Ohio</li> \
-			  <li>Be a farmer from Illinois</li> \
-			  <li>Find out the differences between these choices (Not implemented)</li> \
-			</ol> \
-		</p> \
-		<input type='number' id='input' name='input' min='1' max='3'> "
+            `   <h1> Welcome to Oregon Trail (Testing) </h1> 
+                <p> Many kinds of people made the trip to Oregon. 
+                <br> 
+                You may:  
+                    <ol> 
+                    <li>Be a banker from Boston</li> 
+                    <li>Be a carpenter from Ohio</li> 
+                    <li>Be a farmer from Illinois</li> 
+                    <li>Find out the differences between these choices (Not implemented)</li> 
+                    </ol> 
+                </p> 
+                <input type='number' id='input' name='input' min='1' max='3'> `
         );
     });
 }
@@ -77,10 +77,10 @@ App.Displayer.showDisplay_ChooseLeaderName = function () {
     $(document).ready(function () {
 
         $("#main").html(
-            "<div id='nameChoiceDisplay'> \
-                <h2> What is the first name of the wagon leader? </h2> \
-                <input type='text' id='input' name='wagonLeader' maxlength='10'> \
-            </div>"
+            `<div id='nameChoiceDisplay'> 
+                <h2> What is the first name of the wagon leader? </h2> 
+                <input type='text' id='input' name='wagonLeader' maxlength='10'> 
+            </div>`
         );
     });
 }
@@ -90,26 +90,41 @@ App.Displayer.showDisplay_ChoosePartyNames = function () {
     $(document).ready(function () {
 
         $("#main").html(
-            "<div id='partyChoiceDisplay'> \
-                <h3> What are the first names of the four other members in your party? </h3> \
-                <ol start='1'> \
-                    <li id='partyLead'> </li> \
-                    <li> <input type='text' id='input1' name='input1' maxlength='10'> </li> \
-                    <li> <input type='text' id='input2' name='input2' maxlength='10'> </li> \
-                    <li> <input type='text' id='input3' name='input3' maxlength='10'> </li> \
-                    <li> <input type='text' id='input4' name='input4' maxlength='10'> </li> \
-                </ol> \
-	        </div> "
+            ` <div id='partyChoiceDisplay'> 
+                    <h3> What are the first names of the four other members in your party? </h3> 
+                    <ol start='1'> 
+                        <li id='partyLead'> </li> 
+                        <li> <input type='text' id='input1' name='input1' maxlength='10'> </li> 
+                        <li> <input type='text' id='input2' name='input2' maxlength='10'> </li> 
+                        <li> <input type='text' id='input3' name='input3' maxlength='10'> </li> 
+                        <li> <input type='text' id='input4' name='input4' maxlength='10'> </li> 
+                    </ol> 
+	          </div> `
         );
     });
 }
 
 // Choose month display
-App.Displayer.showDisplay_ChooseMonth= function () {
+App.Displayer.showDisplay_ChooseMonth = function () {
     $(document).ready(function () {
 
         $("#main").html(
-            "<h1> later..</h1>"
+            `
+        <p> It is 1848. Your jumping off place for Oregon is Independence, Missouri. <br>
+			You must decided which month to leave Independence. 
+		<br>
+		<ol>
+			<li>March</li>
+			<li>April</li>
+			<li>May</li>
+			<li>June</li>
+			<li>July</li>
+			<li>Ask for adivce</li>
+		</ol>
+		<br>
+		What is your choice? <input type="number" id="monthChoiceID" name="monthChoice" min="1" max="6">
+		</p>
+            `
         );
     });
 }
