@@ -22,14 +22,8 @@ App.Game = {}
 
 App.Game.init = function () {
 
-    // references to the state, events, and displayer
-    //
-    this.state = App.State;
-    this.events = App.Events;
-    this.displayer = App.Displayer;
-
     // Initialize the default state of of the app.
-    this.state.init({
+    App.State.init({
         axles: 0,
         cloths: 0,
         food: 0,
@@ -82,7 +76,7 @@ App.Game.handleActionBasedOnDisplayNum = function (displayNum) {
 // Profession selection
 App.Game.actionForDisplay_1 = function () {
     // Show the Choose Profession display
-    App.Game.displayer.showDisplayNum(App.Displayer.CHOOSE_PROFESSION);
+    App.Displayer.showDisplayNum(App.Displayer.CHOOSE_PROFESSION);
 
     // Handle choices after DOM has loaded
     $(function () { // Shorthand for $( document ).ready()
@@ -96,13 +90,13 @@ App.Game.actionForDisplay_1 = function () {
                 // Note: First parse the string input to integer
                 switch (parseInt($("#input").val())) {
                     case 1:
-                        App.Game.state.setJob(App.State.BANKER);
+                        App.State.setJob(App.State.BANKER);
                         break;
                     case 2:
-                        App.Game.state.setJob(App.State.CARPENTER)
+                        App.State.setJob(App.State.CARPENTER)
                         break;
                     case 3:
-                        App.Game.state.setJob(App.State.FARMER)
+                        App.State.setJob(App.State.FARMER)
                         break;
                     case 4:
                         // difference in jobs
@@ -125,7 +119,7 @@ App.Game.actionForDisplay_1 = function () {
 // Leader Name selection
 App.Game.actionForDisplay_2 = function () {
     // Show the Choose Leader Name 
-    App.Game.displayer.showDisplayNum(App.Displayer.CHOOSE_LEADER_NAME);
+    App.Displayer.showDisplayNum(App.Displayer.CHOOSE_LEADER_NAME);
 
     // Handle choices after DOM has loaded
     $(function () { // Shorthand for $( document ).ready()
@@ -134,7 +128,7 @@ App.Game.actionForDisplay_2 = function () {
         $("#input").keyup(function (keypressed) {
             if (keypressed.which === 13) {
                 if ($("#input").val() != "") {
-                    App.Game.state.setLeader($("#input").val())
+                    App.State.setLeader($("#input").val())
                 }
                 $("#input").off("keyup");
 
@@ -148,13 +142,13 @@ App.Game.actionForDisplay_2 = function () {
 // Party Name selection
 App.Game.actionForDisplay_3 = function () {
     // Show the Choose Leader Name display
-    App.Game.displayer.showDisplayNum(App.Displayer.CHOOSE_PARTY_NAMES);
+    App.Displayer.showDisplayNum(App.Displayer.CHOOSE_PARTY_NAMES);
 
     // Handle choices after DOM has loaded
     $(function () {
         var partyMemb = [];
 
-        $("#partyLead").text(App.Game.state.getLeader())
+        $("#partyLead").text(App.State.getLeader())
 
         // Party member 2
         $("#input1").focus();
@@ -190,7 +184,7 @@ App.Game.actionForDisplay_3 = function () {
 
                 // TODO: Allow for correction
                 // Add new members to the party
-                App.Game.state.addParty(partyMemb)
+                App.State.addParty(partyMemb)
 
                 // Now Handle for the next screen after this last party member 
                 App.Game.handleActionBasedOnDisplayNum(App.Displayer.CHOOSE_MONTH)
@@ -204,7 +198,7 @@ App.Game.actionForDisplay_3 = function () {
 // Month selection
 App.Game.actionForDisplay_4 = function () {
     // Show the Choose month display
-    App.Game.displayer.showDisplayNum(App.Displayer.CHOOSE_MONTH);
+    App.Displayer.showDisplayNum(App.Displayer.CHOOSE_MONTH);
 
     $(function () {
 
