@@ -38,7 +38,6 @@ App.State.STEADY = 1;
 // For Location
 
 // Initialize the state with a given state
-// NOTE: the value after "||" is a default assingment
 App.State.init = function (state) {
     // Inventory stuff 
     this.axles = state.axles;
