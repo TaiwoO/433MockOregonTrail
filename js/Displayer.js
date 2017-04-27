@@ -6,12 +6,12 @@
  * 
  * OVERVIEW:
  *      Throughout the game, there are different displays, many of which are repetitive.
- *      It would be nice to have a way to request for the display you want and just have.
- *      The one show up
+ *      It would be nice to have a way to request for the display you want and just have
+ *      that one only show up
  * 
  * FUNCTIONALITY: 
  *      - Will contain all the displays for the application.
- *      - Will show the requested display and make all others inactive
+ *      - Will show the requested display.
  *      - etc..     
  */
 

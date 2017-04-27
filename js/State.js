@@ -6,13 +6,13 @@
  * 
  * OVERVIEW:
  *      The core of the game can essentially be thought of as just having a state. 
- *      This can be things like where you are, how much food you have, what the wether is, etc
+ *      This can be things like where you are, how much food you have, what the weather is, etc
  * 
  * FUNCTIONALITY: 
  *      - Will contain all variables which define the state of the application.
  *      - Will have functions for changing those states.
  *      - Will have functions for giving the state.
- *      - etc..     
+ *      - etc...     
  */
 
 App.State = {};
@@ -25,14 +25,14 @@ App.State.CARPENTER = "Carpenter";
 App.State.FARMER = "Farmer";
 
 // For Rations
-App.State.FILLING = 2;
-App.State.MEAGER = 1;
-App.State.BEAR_BONES = 0;
+App.State.FILLING = 3;
+App.State.MEAGER = 2;
+App.State.BEAR_BONES = 1;
 
 // For Pace
-App.State.GRUELING = 2
-App.State.STRENUOUS = 1
-App.State.STEADY = 0
+App.State.GRUELING = 3;
+App.State.STRENUOUS = 2;
+App.State.STEADY = 1;
 
 // TODO  
 // For Location
@@ -65,16 +65,33 @@ App.State.init = function (state) {
 };
 
 
-// =================== STATE CHANGE FUNCTIONS =====================
+// =================== STATE CHANGE FUNCTIONS BASED ON ACTIONS =====================
 
 // Eat Food
 App.State.eat = function () {
-    console.log("Eatting...")
-    this.food -= this.person * OregonH.FOOD_PER_PERSON;
 
+    // Subtract food based on the ration. 
+    switch (this.rations) {
+        case App.State.FILLING:
+            this.food -= App.State.FILLING * App.State.FOOD_PER_PERSON;
+            break;
+        case App.State.MEAGER:
+            this.food -= App.State.MEAGER * App.State.FOOD_PER_PERSON;
+            break;
+        case App.State.BEAR_BONES:
+            this.food -= App.State.BEAR_BONES * App.State.FOOD_PER_PERSON;
+            break;
+        default:
+            console.log(" >>POSSIBLE ERROR in State.js<<: Current ration is not set to a proper value. \
+                        Try setting rations to App.State.FILLING, or App.State.MEAGER, or App.State.BEAR_BONES")
+    }
+
+    // No negatives
     if (this.food < 0) {
         this.food = 0;
     }
+
+    console.log("Eating.. Food left: ", this.food)
 };
 
 // Travel a small distance based on the pace
@@ -83,13 +100,11 @@ App.State.travel = function () {
 };
 
 
-
-
 // ===================== SETTERS / UPDATERS =========================
+
 App.State.setJob = function (job) {
     this.job = job;
     console.log("Set Job to:", this.job)
-
 }
 // Party is array of strings
 App.State.setParty = function (party) {
@@ -112,6 +127,7 @@ App.State.setLeader = function (leader) {
 
 
 // ===================== GETTERS =========================
+
 App.State.getJob = function () {
     return this.job;
 }
@@ -123,6 +139,7 @@ App.State.getLeader = function () {
 }
 
 // ======================= OTHER USEFUL STUFF ===============================
+
 // See the state in the console nicely
 App.State.dumpState = function () {
     var stateJSON = JSON.stringify(App.State, null, 2);

@@ -11,9 +11,10 @@
  *      i.e this is basically just an interacting between the Displayer.js and Events.js
  * 
  * FUNCTIONALITY:
- *      - Communicate with Displayer.js by asking for views
  *      - Controls the app logic
- *      - Trigger events from Event.js based on the choices the user selects in the display
+ *      - Communicate with Displayer.js by asking for views.
+ *      - Communicate with Event.js to ask for events to happen based on user choices
+ *      - Communicate with State.js to ask for state changes based on user choices
  *      - etc....  
  */
 
@@ -106,6 +107,9 @@ App.Game.actionForDisplay_1 = function () {
                     case 4:
                         // difference in jobs
                         App.Game.handleActionBasedOnDisplayNum(App.Displayer.PROFESSION_DIFFERENCES)
+                        // Possible bug fix so that the user does'nt end up with no profession
+                        //App.Game.actionForDisplay_1() // rerun after the user returns from seeing options.
+                        // return
                         break;
                 }
                 //turn off  handler
