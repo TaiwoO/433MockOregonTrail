@@ -66,12 +66,12 @@ App.Game.handleActionBasedOnDisplayNum = function (displayNum) {
             App.Game.actionForDisplay_4();
             break;
         default:
-            console.log(" >>POSSIBLE ERROR in GAME.js<< No Display Number:", displayNum)
+            console.log(" >>POSSIBLE ERROR in GAME.js<< \n\t-No Display Number:", displayNum)
     }
 }
 
 // ================================ ALL ACTIONS FOR THE DISPLAYS ============================
-// Yea we need to handle what happens for each display FUCK!!
+// Yea we need to handle what happens for each display....
 
 // Profession selection
 App.Game.actionForDisplay_1 = function () {
@@ -105,6 +105,8 @@ App.Game.actionForDisplay_1 = function () {
                         //App.Game.actionForDisplay_1() // rerun after the user returns from seeing options.
                         // return
                         break;
+                    default:
+                        console.log(" >>ERROR in GAME.js<<: \n\t-No profession number:", parseInt($("#input").val()), "\n\t-Profession was not set" )
                 }
                 //turn off  handler
                 $("#input").off("keyup");
