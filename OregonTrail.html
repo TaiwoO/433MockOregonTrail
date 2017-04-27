@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+	<head> 
+		<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+	</head>
+	<body>
+
+	<div id="mainMenuDisplay">
+		<h1> The Oregon Trail </h1>
+		<br>
+		<p> You may:
+		<br>
+			<ol>
+				<li>Travel the trail </li>
+				<li>Learn about the trail </li>
+				<li>See the Oregon Top Ten </li>
+				<li>End </li>
+			</ol>
+		</p>
+		<br>
+		What is your choice? <input type="number" id="mainMenuID" name="mainMenu" min="1" max="4">
+	</div>	
+	
+	<div hidden id="profChoiceDisplay">
+		<p> Many kinds of people made the trip to Oregon.
+		<br>
+		You may:
+			<ol>
+			  <li>Be a banker from Boston</li>
+			  <li>Be a carpenter from Ohio</li>
+			  <li>Be a farmer from Illinois</li>
+			  <li>Find out the differences between these choices</li>
+			</ol>
+		</p>
+		<br>
+		What is your choice? <input type="number" id="jobChoiceID" name="jobChoice" min="1" max="4">
+	</div>
+
+	<div hidden id="nameChoiceDisplay">
+		<p> What is the first name of the wagon leader? </p>
+		<input type="text" id="wagonLeaderID" name="wagonLeader" maxlength="30">
+	</div>
+
+	<div hidden id="partyChoiceDisplay">
+		<p> What are the first names of the four other members in your party? </p>
+		<ol start="1">
+			<li id="partyLead"> </li>
+			<li> <input type="text" id="partyMbr2ID" name="partyMbr2" maxlength="30"> </li>
+			<li> <input type="text" id="partyMbr3ID" name="partyMbr3" maxlength="30"> </li>
+			<li> <input type="text" id="partyMbr4ID" name="partyMbr4" maxlength="30"> </li>
+			<li> <input type="text" id="partyMbr5ID" name="partyMbr5" maxlength="30"> </li>
+		</ol>
+	</div>
+
+	<div hidden id="monthChoiceDisplay">
+		<p> It is 1848. Your jumping off place for Oregon is Independence, Missouri. <br>
+			You must decided which month to leave Independence. 
+		<br>
+		<ol>
+			<li>March</li>
+			<li>April</li>
+			<li>May</li>
+			<li>June</li>
+			<li>July</li>
+			<li>Ask for adivce</li>
+		</ol>
+		<br>
+		What is your choice? <input type="number" id="monthChoiceID" name="monthChoice" min="1" max="6">
+		</p>
+	</div>
+	
+	<div hidden id="moneyAndStoreDisplay">
+		<!--Small intermediate text between months and matts store-->
+	</div>
+	
+	<div hidden id="storeMenuDisplay">
+		<h2 hidden id="mattsStore"> Matt's General Store </h2>
+		<h3 hidden id="generalStore"> General Store </h3> <!--Will be Fort _____'s General Store-->
+		<br>
+		<h2 hidden id="mattsLocation"> Independence, Missouri </h2>
+		<br>
+		<br>
+		<h3 hidden id="currentDate"> </h3>
+		<br>
+		<br>
+		<ol> <!--All these will need to be edited to display current running cost of amount bought-->
+			<li id="oxenPrice">Oxen                  $</li>
+			<li id="foodPrice">Food                  $</li>
+			<li id="clothingPrice">Clothing              $</li>
+			<li id="baitPrice">Fishing Bait            $</li>
+			<li id="wheelPrice">Wagon Wheel           $</li>
+			<li id="axlePrice">Wagon Axle            $</li>
+			<li id="tonguePrice">Wagon Tongue          $</li>
+		</ol>
+		<br>
+		<p id="bill">Total bill:    $</p>
+		<br>
+		<br>
+		<p id="money">Amount you have:  $</p>
+		<br>
+		Which item would you like to buy? <input type="number" id="buyItemID" name="buyItem" min="1" max="7">
+		<!---Spacebar to leave store-->
+	</div>
+	
+	<div hidden id="oxenDisplay">
+		<!---oxen text--->
+		<p>
+		How many yoke do you want? <input type="number" id="buyOxenID" name="buyOxen" min="0" max="18">
+		</p>
+	</div>
+	
+	<div hidden id="foodDisplay">
+		<!---food text--->
+		<p>
+		How many pounds of food do you want? <input type="number" id="buyFoodID" name="buyFood" min="0" max="2000">
+		</p>
+	</div>
+	
+	<div hidden id="clothingDisplay">
+		<!---clothing text--->
+		<p>
+		How many sets of clothes do you want? <input type="number" id="buyClothesID" name="buyClothes" min="0" max="99">
+		</p>
+	</div>
+	
+	<div hidden id="baitDisplay">
+		<!---bait text--->
+		<p>
+		How many boxes do you want? <input type="number" id="buyBaitID" name="buyBait" min="0" max="99">
+		</p>
+	</div>
+	
+	<div hidden id="wheelDisplay">
+		<!---wheel text--->
+		<p>
+		How many wagon wheels do you want? <input type="number" id="buyWheelID" name="buyWheel" min="0" max="3">
+		</p>
+	</div>
+	
+	<div hidden id="axleDisplay">
+		<!---axle text--->
+		<p>
+		How many wagon axles do you want? <input type="number" id="buyAxleID" name="buyAxle" min="0" max="3">
+		</p>
+	</div>
+	
+	<div hidden id="tongueDisplay">
+		<!---tongues text--->
+		<p>
+		How many wagon tongues do you want? <input type="number" id="buyTongueID" name="buyTongue" min="0" max="3">
+		</p>
+	</div>
+	
+	<div hidden id="stopStatus">
+		<table>
+			<tr>
+				<td id="townWeather"> Weather: </td>
+			</tr>
+			<tr>
+				<td id="townHealth"> Health: </td>
+			</tr>
+			<tr>
+				<td id="townPace"> Pace: </td>
+			</tr>
+			<tr>
+				<td id="townRations"> Rations: </td>
+			</tr>
+		</table>
+	</div>
+	
+	<div hidden id="townsDisplay">
+		<h4 id="town"> </h4>
+		<br>
+		<p>
+		You may:
+		<br>
+		<ol>
+			<li> Continue on trail </li>
+			<li> Check supplies </li>
+			<li> Look at map </li>
+			<li> Change pace </li>
+			<li> Change food rations </li>
+			<li> Stop to rest </li>
+			<li> Attempt to trade </li>
+			<li> Talk to people </li>
+			<li> Buy supplies </li>
+		</ol>
+		<br>
+		What is your choice? <input type="number" id="townChoiceID" name="townChoice" min="0" max="9">
+	</div>
+	
+	<div hidden id="stopOnTrailDisplay">
+		<h5 id="currentDate"> </h4>
+		<br>
+		<p>
+		You may:
+		<br>
+		<ol>
+			<li> Continue on trail </li>
+			<li> Check supplies </li>
+			<li> Look at map </li>
+			<li> Change pace </li>
+			<li> Change food rations </li>
+			<li> Stop to rest </li>
+			<li> Attempt to trade </li>
+			<li> Fish for food </li>
+		</ol>
+		<br>
+		What is your choice? <input type="number" id="stopChoiceID" name="stopChoice" min="0" max="8">
+	</div>
+	
+	<div hidden id="currentSupplies">
+		<p>
+		Your Supplies
+		<ul style="list-style-type:none">
+			<li id="currentOxen"> Oxen                       </li>
+			<li id="currentClothing"> Sets of Clothing           </li>
+			<li id="currentBait"> Bait                       </li>
+			<li id="currentWheels"> Wagon Wheels               </li>
+			<li id="currentAxles"> Wagon Axles                </li>
+			<li id="currentTongues"> Wagon Tongues              </li>
+			<li id="currentFood"> Pounds of Food             </li>
+			<li id="currentMoney"> Money Left                $</li>
+		</ul>
+		</p>
+		<!--Enter to go back to previous menu-->
+	</div>
+	
+	</body>
+</html>
