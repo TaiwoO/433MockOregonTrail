@@ -36,6 +36,7 @@ App.State.STEADY = 1;
 
 // TODO  
 // For Location
+// For Month
 
 // Initialize the state with a given state
 App.State.init = function (state) {
@@ -44,9 +45,19 @@ App.State.init = function (state) {
     this.cloths = state.cloths;
     this.food = state.food;
     this.money = state.money;
+    this.bait = state.bait;
     this.oxen = state.oxen;
     this.tongues = state.tongues;
     this.wheels = state.wheels;
+
+    // Base prices
+    this.priceOxen = 20;
+    this.priceFood = .20;
+    this.priceCloths = 10;
+    this.priceBait = 2;
+    this.priceWheel = 10;
+    this.priceAxle = 10;
+    this.priceTongue = 10;
 
     // Condition stuff
     this.weather = state.weather;
@@ -61,6 +72,8 @@ App.State.init = function (state) {
     this.location = state.location;
     this.date = state.data;
     this.milesTraveled = state.milesTraveled;
+
+ 
 };
 
 
@@ -103,38 +116,138 @@ App.State.travel = function () {
 
 App.State.setJob = function (job) {
     this.job = job;
+    switch(this.job) {
+        case App.State.BANKER:
+            this.money = 1600;
+            break;
+        case App.State.CARPENTER:
+            this.money = 800;
+            break;
+        case App.State.FARMER:
+            this.money = 400;
+            break;
+    }
     console.log("Set Job to:", this.job)
 }
-// Party is array of strings
-App.State.setParty = function (party) {
-    this.party = party;
-    console.log("Set Party to:", this.party)
-
-}
-// Party is array of strings to to added to already exisiting party
-App.State.addParty = function (party) {
-    this.party = this.party.concat(party);
-    console.log("Added:", party, "to the party.", "The current party is now: ", this.party)
-}
-
 App.State.setLeader = function (leader) {
     // Add leader to party
     this.party[0] = leader;
     this.leader = leader;
     console.log("Set party lead to:", this.leader, " Current party:", this.party)
 }
+// Party is array of strings
+App.State.setParty = function (party) {
+    this.party = party;
+    console.log("Set Party to:", this.party)
+}
+// Append the party to the current party
+App.State.addParty = function (party) {
+    this.party = this.party.concat(party);
+    console.log("Added:", party, "to the party.", "The current party is now: ", this.party)
+}
+App.State.setMonth = function(month) {
+    this.month = month;
+    console.log("Set month to:", this.month)
+}
+App.State.setMoney = function(money) {
+    this.money = money;
+    console.log("Set money to:", this.money)
+}
+// updates the prices of goods based on location
+App.State.updatePrices = function () {
+
+    switch(this.location) {
+        // case App.State.KANSAS:
+        //     this.price = ???
+        //     this...= ??
+        //     this...= ??
+        //     this...= ??
+        //     this...= ??
+        //     break;
+    }
+}
+
+App.State.setOxen = function (val) {
+    this.oxen = val;
+    console.log("set oxen to:",this.oxen);
+}
+App.State.setFood = function (val) {
+    this.food = val;
+    console.log("set food to:",this.food);
+}
+App.State.setCloths = function (val) {
+    this.cloths = val;
+    console.log("set cloths to:",this.cloths);
+}
+App.State.setBait = function (val) {
+    this.bait = val;
+    console.log("set bait to:",this.bait);
+}
+App.State.setWheels = function (val) {
+    this.wheels = val;
+    console.log("set wheels to:",this.wheels);
+}
+App.State.setAxles = function (val) {
+    this.axles = val;
+    console.log("set axles to:",this.axles);
+}
+App.State.setTongues = function (val) {
+    this.tongues = val;
+    console.log("set tongues to:",this.tongues);
+}
+
 
 
 // ===================== GETTERS =========================
 
+// For ...
+//
 App.State.getJob = function () {
     return this.job;
+}
+App.State.getLeader = function () {
+    return this.leader;
 }
 App.State.getParty = function () {
     return this.party;
 }
-App.State.getLeader = function () {
-    return this.leader;
+App.State.getMonth = function () {
+    return this.month;
+}
+App.State.getDate = function () {
+    return this.data;
+}
+
+// For Inventory
+//
+
+App.State.getMoney = function () {
+    return this.money;
+}
+
+// For prices
+//
+
+App.State.getPriceOxen = function() {
+    return this.priceOxen;
+}
+App.State.getPriceFood = function() {
+    return this.priceFood;
+}
+App.State.getPriceCloths = function() {
+    return this.priceCloths;
+}
+App.State.getPriceBait = function() {
+    return this.priceBait;
+}
+App.State.getPriceWheel = function() {
+    return this.priceWheel;
+}
+App.State.getPriceAxle = function() {
+    return this.priceAxle;
+}
+App.State.getPriceTongue = function() {
+    return this.priceTongue;
 }
 
 // ======================= OTHER USEFUL STUFF ===============================
@@ -144,3 +257,4 @@ App.State.dumpState = function () {
     var stateJSON = JSON.stringify(App.State, null, 2);
     console.log(stateJSON);
 }
+
