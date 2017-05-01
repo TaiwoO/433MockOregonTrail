@@ -50,7 +50,7 @@ App.State.init = function (state) {
     this.tongues = state.tongues;
     this.wheels = state.wheels;
 
-    // Base prices
+    // Base prices move to db??
     this.priceOxen = 20;
     this.priceFood = .20;
     this.priceCloths = 10;
@@ -200,7 +200,7 @@ App.State.setTongues = function (val) {
 
 // ===================== GETTERS =========================
 
-// For ...
+// For states
 //
 App.State.getJob = function () {
     return this.job;

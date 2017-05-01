@@ -65,7 +65,10 @@ App.Game.init = function () {
 App.Game.handleActionBasedOnDisplayNum = function (displayNum) {
 
     switch (displayNum) {
-        /** Part 1: Setting up character*/
+
+        /** Part 1: Setting up character
+         * 
+         */
         case App.Displayer.CHOOSE_PROFESSION:
             // Show the Choose Profession display
             App.Displayer.showDisplayNum(displayNum);
@@ -103,7 +106,9 @@ App.Game.handleActionBasedOnDisplayNum = function (displayNum) {
             App.Game.actionFor_Intermediate2();
             break;
 
-        /** Part 2: Matt's store */
+        /** 
+         * Part 2: Matt's store 
+         * */
         case App.Displayer.GENERAL_STORE:
             App.Displayer.showDisplayNum(displayNum);
             App.Game.actionFor_GeneralStore();
@@ -137,7 +142,9 @@ App.Game.handleActionBasedOnDisplayNum = function (displayNum) {
             App.Game.actionFor_GeneralStoreTongue();
             break;
 
-        /** Part 3: Beginning Journey */
+        /** Part 3: Beginning Journey 
+         * 
+         */
         case App.Displayer.INTERMEDIATE_3:
             App.Displayer.showDisplayNum(displayNum);
             App.Game.actionFor_Intermediate3();

@@ -18,17 +18,21 @@
 App.Displayer = {}
 
 
-// Indexes of the pages on the app.
-// We'll see which naming scheme is best
+/** Indexes of the pages on the app.**/
+
+// Part 1: Setting up player
+// __________________________
 App.Displayer.CHOOSE_PROFESSION = 1
 App.Displayer.PROFESSION_DIFFERENCES = 2;
 App.Displayer.CHOOSE_LEADER_NAME = 3;
 App.Displayer.CHOOSE_PARTY_NAMES = 4;
 App.Displayer.CHOOSE_MONTH = 5;
 App.Displayer.MONTH_ADVICE = 6;
-App.Displayer.INTERMEDIATE_1 = 7;
+App.Displayer.INTERMEDIATE_1 = 7; 
 App.Displayer.INTERMEDIATE_2 = 8;
 
+// Part 2: At Matt's store
+// __________________________
 App.Displayer.GENERAL_STORE = 9;
 App.Displayer.GENERAL_STORE_OXEN = 10;
 App.Displayer.GENERAL_STORE_FOOD = 11;
@@ -37,6 +41,9 @@ App.Displayer.GENERAL_STORE_BAIT= 13;
 App.Displayer.GENERAL_STORE_WHEEL = 14;
 App.Displayer.GENERAL_STORE_AXLE = 15;
 App.Displayer.GENERAL_STORE_TONGUE = 16;
+
+// Part 3: ...
+// __________________________
 
 App.Displayer.INTERMEDIATE_3 = 17;
 // App.Displayer.;
@@ -48,14 +55,16 @@ App.Displayer.INTERMEDIATE_3 = 17;
 // App.Displayer.;
 // App.Displayer.;
 // App.Displayer.;
-App.Displayer._4 = 5;
-App.Displayer._5 = 6;
+
 
 // Shows the display based on requested display number
 App.Displayer.showDisplayNum = function (displayNumber) {
 
     switch (displayNumber) {
-        /** Part 1: Setting up character*/
+
+        /** Part 1: Setting up character
+         * 
+         */
         case App.Displayer.CHOOSE_PROFESSION:
             App.Displayer.showDisplay_ChooseProfession()
             break;
@@ -81,7 +90,9 @@ App.Displayer.showDisplayNum = function (displayNumber) {
             App.Displayer.showDisplay_Intermediate2()
             break;
 
-        /** Part 2: Matt's store */
+        /** Part 2: Matt's store 
+         * 
+         */
         case App.Displayer.GENERAL_STORE:
             App.Displayer.showDisplay_GeneralStore()
             break;
@@ -107,7 +118,9 @@ App.Displayer.showDisplayNum = function (displayNumber) {
             App.Displayer.showDisplay_GeneralStoreTongue()
             break;
 
-        /** Part 3: Beginning Journey */
+        /** Part 3: Beginning Journey 
+         *  
+         */
         case App.Displayer.INTERMEDIATE_3:
             App.Displayer.showDisplay_Intermediate3()
             break;
