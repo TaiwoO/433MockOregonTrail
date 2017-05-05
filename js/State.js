@@ -224,7 +224,31 @@ App.State.getDate = function () {
 App.State.getMoney = function () {
     return this.money;
 }
+App.State.getOxen = function () {
+    return this.oxen;
+}
+App.State.getFood = function () {
+    return this.food;
+}
+App.State.getClothing = function () {
+    return this.cloths;
+}
+App.State.getBait = function () {
+    return this.bait;
+}
+App.State.getWheel = function () {
+    return this.wheels;
+}
+App.State.getAxle = function () {
+    return this.axles;
+}
+App.State.getTongue = function () {
+    return this.tongues;
+}
+App.State.getInventory = function () {
+    return App.Game.shoppingCart;
 
+}
 // For prices
 //
 

@@ -588,7 +588,8 @@ App.Game.actionFor_GeneralStoreTongue = function () {
 
 // Text directly after making purchases at Matt's store (INTERMEDIATE_3)
 App.Game.actionFor_Intermediate3 = function () {
-    
+
+    App.Game.StringifyPlayerData()
     App.Game.afterSpaceBar(App.Displayer.INTERMEDIATE_4)
 }
 
@@ -630,6 +631,23 @@ App.Game.afterSpaceBar = function (displayNum) {
     });
 }
 
+//Stringify's relevant playerData (don't want just App.State or Game, its too much info)
+App.Game.StringifyPlayerData = function ()
+{
+    //send Player data to the DB
+    var playerData = {};
+    playerData["playerName"]    = App.State.getLeader();
+    playerData["playerJob"]     = App.State.getJob();
+    playerData["partyMbrs"]     = App.State.getParty();
+    playerData["playerWallet"]  = App.State.getMoney();
+    playerData["playerInventory"]   = App.State.getInventory();
+    //can add mileage and other travel data. 
+    //Would prefer a separate object that is nested inside playerData
+    var playerDataJSON = JSON.stringify(playerData);
+    console.log(playerDataJSON);
+    //send playerData to DB, still need to figure that out
+    //will just be a simple function set up
+}
 
 
 

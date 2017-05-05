@@ -198,7 +198,8 @@ App.Displayer.showDisplay_ChoosePartyNames = function () {
 
         $("#main").html(
             ` <div id='partyChoiceDisplay'> 
-                    <h3> What are the first names of the four other members in your party? </h3> 
+                    <h3> What are the first names of the four other members in your party?
+                    <br> (Hit 'Enter' after each name) </h3> 
                     <ol start='1'> 
                         <li id='partyLead'> </li> 
                         <li> <input type='text' id='input1' name='input1' maxlength='10'> </li> 
@@ -332,7 +333,7 @@ App.Displayer.showDisplay_GeneralStore = function () {
             <br>
             <p class="below">Press SPACE BAR to leave store</p>
 
-            <p hidden id="warning"> Make sure that you have oxen and aren't over you'r spending limit</p>
+            <p hidden id="warning"> Make sure that you have oxen and aren't over your spending limit</p>
 		</div>
             `
         );
@@ -396,7 +397,7 @@ App.Displayer.showDisplay_GeneralStoreBait = function () {
              <p> Bait....</p>
             <br>
             <p>
-		        How many baits do you want? <input type="number" id="input" name="input" min="0" max="200">
+		        How much bait do you want? <input type="number" id="input" name="input" min="0" max="200">
 		    </p>
             <p> Bill so far:  $<span id="bill"></span></p>
             `
@@ -463,7 +464,7 @@ App.Displayer.showDisplay_Intermediate3 = function () {
         $("#main").html(
             `
             <p> Well then, you're ready to start.</p>
-            <p> Good luck! You have a long and difficault journey ahead of you </p>
+            <p> Good luck! You have a long and difficult journey ahead of you </p>
             <p class="below">Press SPACE BAR to continue</p>            
             `
         );
