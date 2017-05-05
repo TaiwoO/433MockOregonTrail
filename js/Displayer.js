@@ -28,7 +28,7 @@ App.Displayer.CHOOSE_LEADER_NAME = 3;
 App.Displayer.CHOOSE_PARTY_NAMES = 4;
 App.Displayer.CHOOSE_MONTH = 5;
 App.Displayer.MONTH_ADVICE = 6;
-App.Displayer.INTERMEDIATE_1 = 7; 
+App.Displayer.INTERMEDIATE_1 = 7;
 App.Displayer.INTERMEDIATE_2 = 8;
 
 // Part 2: At Matt's store
@@ -37,7 +37,7 @@ App.Displayer.GENERAL_STORE = 9;
 App.Displayer.GENERAL_STORE_OXEN = 10;
 App.Displayer.GENERAL_STORE_FOOD = 11;
 App.Displayer.GENERAL_STORE_CLOTHING = 12;
-App.Displayer.GENERAL_STORE_BAIT= 13;
+App.Displayer.GENERAL_STORE_BAIT = 13;
 App.Displayer.GENERAL_STORE_WHEEL = 14;
 App.Displayer.GENERAL_STORE_AXLE = 15;
 App.Displayer.GENERAL_STORE_TONGUE = 16;
@@ -46,6 +46,17 @@ App.Displayer.GENERAL_STORE_TONGUE = 16;
 // __________________________
 
 App.Displayer.INTERMEDIATE_3 = 17;
+App.Displayer.INTERMEDIATE_4 = 18;
+App.Displayer.MAIN_DISPLAY = 19;
+App.Displayer.MAIN_DISPLAY_TRAVEL = 20;
+App.Displayer.MAIN_DISPLAY_SUPPLIES = 21;
+App.Displayer.MAIN_DISPLAY_MAP = 22;
+App.Displayer.MAIN_DISPLAY_CHANGE_PACE = 23;
+App.Displayer.MAIN_DISPLAY_CHANGE_RATION = 24;
+App.Displayer.MAIN_DISPLAY_REST = 25;
+App.Displayer.MAIN_DISPLAY_TRADE = 26;
+App.Displayer.MAIN_DISPLAY_TALK = 27;
+App.Displayer.MAIN_DISPLAY_PURCHASE = 28;
 // App.Displayer.;
 // App.Displayer.;
 // App.Displayer.;
@@ -90,9 +101,9 @@ App.Displayer.showDisplayNum = function (displayNumber) {
             App.Displayer.showDisplay_Intermediate2()
             break;
 
-        /** Part 2: Matt's store 
-         * 
-         */
+        /** 
+         * Part 2: Matt's store 
+         * */
         case App.Displayer.GENERAL_STORE:
             App.Displayer.showDisplay_GeneralStore()
             break;
@@ -105,7 +116,7 @@ App.Displayer.showDisplayNum = function (displayNumber) {
         case App.Displayer.GENERAL_STORE_CLOTHING:
             App.Displayer.showDisplay_GeneralStoreClothing()
             break;
-         case App.Displayer.GENERAL_STORE_BAIT:
+        case App.Displayer.GENERAL_STORE_BAIT:
             App.Displayer.showDisplay_GeneralStoreBait()
             break;
         case App.Displayer.GENERAL_STORE_WHEEL:
@@ -118,11 +129,45 @@ App.Displayer.showDisplayNum = function (displayNumber) {
             App.Displayer.showDisplay_GeneralStoreTongue()
             break;
 
-        /** Part 3: Beginning Journey 
-         *  
-         */
+        /** 
+         * Part 3: Beginning Journey 
+         * */
         case App.Displayer.INTERMEDIATE_3:
             App.Displayer.showDisplay_Intermediate3()
+            break;
+        case App.Displayer.INTERMEDIATE_4:
+            App.Displayer.showDisplay_Intermediate4()
+            break;
+
+        case App.Displayer.MAIN_DISPLAY = 19:
+            App.Displayer.showDisplay_MainDisplay()
+            break;
+        case App.Displayer.MAIN_DISPLAY_TRAVEL = 20:
+            App.Displayer.showDisplay_MainDisplayTravel()
+            break;
+        case App.Displayer.MAIN_DISPLAY_SUPPLIES = 21:
+            App.Displayer.showDisplay_MainDisplaySupplies()
+            break;
+        case App.Displayer.MAIN_DISPLAY_MAP = 22:
+            App.Displayer.showDisplay_MainDisplayMap()
+            break;
+        case App.Displayer.MAIN_DISPLAY_CHANGE_PACE = 23:
+            App.Displayer.showDisplay_MainDisplayChangePace()
+            break;
+        case App.Displayer.MAIN_DISPLAY_CHANGE_RATION = 24:
+            App.Displayer.showDisplay_MainDisplayChangeRation()
+            break;
+        case App.Displayer.MAIN_DISPLAY_REST = 25:
+            App.Displayer.showDisplay_MainDisplayRest()
+            break;
+        case App.Displayer.MAIN_DISPLAY_TRADE = 26:
+            App.Displayer.showDisplay_MainDisplayTrade()
+            break;
+        case App.Displayer.MAIN_DISPLAY_TALK = 27:
+            App.Displayer.showDisplay_MainDisplayTalk()
+            break;
+        case App.Displayer.MAIN_DISPLAY_PURCHASE = 28:
+            App.Displayer.showDisplay_MainDisplayPurchase()
             break;
 
         default:
@@ -153,7 +198,7 @@ App.Displayer.showDisplay_ChooseProfession = function () {
                     <li>Be a banker from Boston</li> 
                     <li>Be a carpenter from Ohio</li> 
                     <li>Be a farmer from Illinois</li> 
-                    <li>Find out the differences between these choices (Not implemented)</li> 
+                    <li>Find out the differences between these choices</li> 
                     </ol> 
                 </p> 
                 <input type='number' id='input' name='input' min='1' max='3'> `
@@ -470,6 +515,205 @@ App.Displayer.showDisplay_Intermediate3 = function () {
     });
 }
 
+// (INTERMEDIATE4)
+App.Displayer.showDisplay_Intermediate4 = function () {
+    $(document).ready(function () {
+        $("#main").html(
+            `
+            <p> Independence</p>
+            <p id="date"> </p>
+            <p class="below">Press SPACE BAR to continue</p>            
+            `
+        );
+    });
+}
+
+//(MAIN_DISPLAY)
+App.Displayer.showDisplay_MainDisplay = function () {
+    $(document).ready(function () {
+        $("#main").html(
+            `
+            <p id="location" class="center">placeholder location.. </p>
+            <p id="date" class="center">placeholder date...</p>
+            
+            <div class="bg-white">
+                <p>Weather: <span id="weather"></span></p>
+                <p>Health: <span id="health"></span></p>
+                <p>Pace: <span id="pace"></span></p>
+                <p>Rations: <span id="ration"></span></p>
+            </div>
+
+            <p> You May: </p>
+            <ol> 
+                <li> Continue the trail</li>
+                <li> Check supplies</li>
+                <li> Look at map</li>
+                <li> Change pace</li>
+                <li> Change food ration </li>
+                <li> Stop to rest</li>
+                <li> Attempt to trade</li>
+                <li> Talk to people</li>
+                <li> Buy supplies</li>
+            </ol>
+            <p>What is your choice? <input type="number" id="input" name="input" min="0" max="9"></p>
+            
+            `
+        );
+    });
+}
+
+// TODO: (MAIN_DISPLAY_TRAVEL) 
+App.Displayer.showDisplay_MainDisplayTravel = function () {
+    $(document).ready(function () {
+        $("#main").html(
+            `
+            `
+        );
+    });
+}
+
+// (MAIN_DISPLAY_SUPPLIES)
+App.Displayer.showDisplay_MainDisplaySupplies = function () {
+    $(document).ready(function () {
+        $("#main").html(
+            `
+            <p> Your Supplies </p>
+            <ul> 
+                <li> Oxen</li>
+                <li> Set of cloths <span id="cloths"><span></li>
+                <li> Bait <span id="bait"><span></li>
+                <li> Wagon wheels <span id="wheel"><span></li>
+                <li> Wagon axels <span id="axel"><span></li>
+                <li> Wagon tongues <span id="tongue"><span></li>
+                <li> pounds of food <span id="food"><span></li>
+                <li> Money left <span id="money"><span></li>
+            </ul>
+            <p class="below">Press SPACE BAR to continue</p>            
+            `
+        );
+    });
+}
+
+//(MAIN_DISPLAY_MAP)
+App.Displayer.showDisplay_MainDisplayMap = function () {
+    $(document).ready(function () {
+        $("#main").html(
+            `
+            <div id="map"> MAP HERE</div>
+            <p class="below">Press SPACE BAR to continue</p>            
+            `
+        );
+    });
+}
 
 
+// (MAIN_DISPLAY_CHANGE_PACE)
+App.Displayer.showDisplay_MainDisplayChangePace = function () {
+    $(document).ready(function () {
+        $("#main").html(
+            `
+            <p>Change pace</p>
+            <p>currently <span id="pace"><span></p>
 
+            <p>The pace at which you travel can change. Your choices are: </p>
+            <ol> 
+                <li> A steady pace</li>
+                <li> A strenuous pace pace</li>
+                <li> A grueling pace</li>
+                <li> find out what these different paces mean</li>
+               
+            </ol>   
+
+            <p>What is your choice? <input type="number" id="input" name="input" min="0" max="4"></p>
+         
+            `
+        );
+    });
+}
+
+// (MAIN_DISPLAY_CHANGE_RATION)
+App.Displayer.showDisplay_MainDisplayChangeRation = function () {
+    $(document).ready(function () {
+        $("#main").html(
+            `
+            <p>Change food rations</p>
+            <p>currently <span id="ration"><span></p>
+
+            <p>The amount of food the people in yuor party can eat each day can change. These amounts are </p>
+            <ol> 
+                <li> Filling - meals are large and generous</li>
+                <li> Meager - meals are small, but adequate</li>
+                <li> Bare bones - meals are very small, everyone stays hungry</li>               
+            </ol>   
+
+            <p>What is your choice? <input type="number" id="input" name="input" min="0" max="4"></p>
+         
+            `
+        );
+    });
+}
+
+// (MAIN_DISPLAY_TRADE)
+App.Displayer.showDisplay_MainDisplayTrade = function () {
+    $(document).ready(function () {
+        $("#main").html(
+            `
+            <p> Your Supplies </p>
+            <ul> 
+                <li> Oxen</li>
+                <li> Set of cloths <span id="cloths"><span></li>
+                <li> Bait <span id="bait"><span></li>
+                <li> Wagon wheels <span id="wheel"><span></li>
+                <li> Wagon axels <span id="axel"><span></li>
+                <li> Wagon tongues <span id="tongue"><span></li>
+                <li> pounds of food <span id="food"><span></li>
+                <li> Money left <span id="money"><span></li>
+            </ul>
+
+            <!-- TODO: Generated randomly by the Event -->
+            <div id="event-trade"> (Not implemented)This will be a randomly generated trade event display...<div>          
+            `
+        );
+    });
+}
+
+// (MAIN_DISPLAY_TALK)
+App.Displayer.showDisplay_MainDisplayTalk = function () {
+    $(document).ready(function () {
+        $("#main").html(
+            `
+            <div id=event-talk> (Not implemented)This will be a randomly generated talk event display...</div>
+            <p class="below">Press SPACE BAR to continue</p>            
+            `
+        );
+    });
+}
+
+// (MAIN_DISPLAY_PURCHASE)
+App.Displayer.showDisplay_MainDisplayPurchase= function () {
+    $(document).ready(function () {
+        $("#main").html(
+            `
+             <p> You may buy: </p>
+            <ol> 
+                <li> Oxen  <span id="price-oxen"></span> per ox</li>
+                <li> Clothing <span id="price-cloths"><span> per set</li>
+                <li> Bait <span id="price-bait"><span> per box</li>
+                <li> Wagon wheels <span id="price-wheel"><span> per wheel</li>
+                <li> Wagon axels <span id="price-axel"><span>per axel</li>
+                <li> Wagon tongues <span id="price-tongue"><span>per tongue</li>
+                <li> pounds of food <span id="price-food"><span>per pound</li>
+                <li> Leave store</li>
+            </ol>
+            <p> You have $<span id="money"><span> to spend.</p>
+            <p>Which number? <input type="number" id="input" name="input" min="1" max="8"></p>
+            
+            <!-- This display is dependent on user choice. Will be hidden until choice is made.-->
+            <p hidden>How many <span id="item"></span> ? <input type="number" id="input2" name="input" min="1" max="8"></p>
+
+            `
+        );
+    });
+}
+// TODO. Most likey this might be places in the displayer html
+// App.Displayer.MAIN_DISPLAY_REST = 25;

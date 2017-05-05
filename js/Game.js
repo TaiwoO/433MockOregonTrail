@@ -18,6 +18,7 @@
  *      - etc....  
  */
 
+
 App.Game = {}
 
 App.Game.init = function () {
@@ -46,7 +47,7 @@ App.Game.init = function () {
         weather: 0,
         health: 0,
         pace: 0,
-        rations: 0,
+        ration: 0,
         leader: "",
         job: "",
         party: [],
@@ -66,9 +67,9 @@ App.Game.handleActionBasedOnDisplayNum = function (displayNum) {
 
     switch (displayNum) {
 
-        /** Part 1: Setting up character
-         * 
-         */
+        /** 
+         * Part 1: Setting up character
+         * */
         case App.Displayer.CHOOSE_PROFESSION:
             // Show the Choose Profession display
             App.Displayer.showDisplayNum(displayNum);
@@ -142,13 +143,59 @@ App.Game.handleActionBasedOnDisplayNum = function (displayNum) {
             App.Game.actionFor_GeneralStoreTongue();
             break;
 
-        /** Part 3: Beginning Journey 
-         * 
-         */
+        /** 
+         * Part 3: Beginning Journey 
+         * */
         case App.Displayer.INTERMEDIATE_3:
             App.Displayer.showDisplayNum(displayNum);
             App.Game.actionFor_Intermediate3();
             break;
+        case App.Displayer.INTERMEDIATE_4:
+            App.Displayer.showDisplayNum(displayNum);
+            App.Game.actionFor_Intermediate4();
+            break;
+
+        case App.Displayer.MAIN_DISPLAY:
+            App.Displayer.showDisplayNum(displayNum);
+            App.Game.actionFor_MainDisplay();
+            break;
+        case App.Displayer.MAIN_DISPLAY_TRAVEL:
+            App.Displayer.showDisplayNum(displayNum);
+            App.Game.actionFor_MainDisplayTravel();
+            break;
+        case App.Displayer.MAIN_DISPLAY_SUPPLIES:
+            App.Displayer.showDisplayNum(displayNum);
+            App.Game.actionFor_MainDisplaySupplies();
+            break;
+        case App.Displayer.MAIN_DISPLAY_MAP:
+            App.Displayer.showDisplayNum(displayNum);
+            App.Game.actionFor_MainDisplayMap();
+            break;
+        case App.Displayer.MAIN_DISPLAY_CHANGE_PACE:
+            App.Displayer.showDisplayNum(displayNum);
+            App.Game.actionFor_MainDisplayChangePace();
+            break;
+        case App.Displayer.MAIN_DISPLAY_CHANGE_RATION:
+            App.Displayer.showDisplayNum(displayNum);
+            App.Game.actionFor_MainDisplayChangeRation();
+            break;
+        case App.Displayer.MAIN_DISPLAY_REST:
+            App.Displayer.showDisplayNum(displayNum);
+            App.Game.actionFor_MainDisplayRest();
+            break;
+        case App.Displayer.MAIN_DISPLAY_TRADE:
+            App.Displayer.showDisplayNum(displayNum);
+            App.Game.actionFor_MainDisplayTrade();
+            break;
+        case App.Displayer.MAIN_DISPLAY_TALK:
+            App.Displayer.showDisplayNum(displayNum);
+            App.Game.actionFor_MainDisplayTalk();
+            break;
+        case App.Displayer.MAIN_DISPLAY_PURCHASE:
+            App.Displayer.showDisplayNum(displayNum);
+            App.Game.actionFor_MainDisplayPurchase();
+            break;
+
 
         default:
             console.log(" >>POSSIBLE ERROR in GAME.js<< \n\t-No Display Number:", displayNum)
@@ -198,7 +245,7 @@ App.Game.actionFor_ChooseProfession = function () {
                         console.log(" >>ERROR in GAME.js<<: \n\t-No profession number:", parseInt($("#input").val()), "\n\t-Profession was not set")
                 }
                 //turn off  handler
-                $("#input").off("keyup");
+                // $("#input").off("keyup");
             }
         });
     });
@@ -582,17 +629,119 @@ App.Game.actionFor_GeneralStoreTongue = function () {
 }
 
 /**================================================================
- * PART 3: .....
+ * PART 3: Primary disply of the game
  * ================================================================
  */
 
 // Text directly after making purchases at Matt's store (INTERMEDIATE_3)
 App.Game.actionFor_Intermediate3 = function () {
-    
+
     App.Game.afterSpaceBar(App.Displayer.INTERMEDIATE_4)
 }
 
-// CONTINUE HERE ...
+App.Game.actionFor_Intermediate4 = function () {
+    // $("#date").text(App.State.getDate());
+    $("#date").text(App.State.getMonth());
+    App.Game.afterSpaceBar(App.Displayer.MAIN_DISPLAY)
+}
+
+// (MAIN_DISPLAY)
+App.Game.actionFor_MainDisplay = function () {
+    var condition = App.State.getCondition();
+
+    $(function () {
+        $("#weather").text(condition.weather);
+        $("#health").text(condition.health);
+        $("#pace").text(condition.pace);
+        $("#ration").text(condition.ration);
+
+        $("#input").focus()
+        $("#input").keyup(function (keypressed) {
+            if (keypressed.which === 13) {
+                switch (parseInt($("#input").val())) {
+                    case 1:
+                        App.Game.handleActionBasedOnDisplayNum(App.Displayer.MAIN_DISPLAY_TRAVEL);
+                        break;
+                    case 2:
+                        App.Game.handleActionBasedOnDisplayNum(App.Displayer.MAIN_DISPLAY_SUPPLIES);
+                        break;
+                    case 3:
+                        App.Game.handleActionBasedOnDisplayNum(App.Displayer.MAIN_DISPLAY_MAP);
+                        break;
+                    case 4:
+                        App.Game.handleActionBasedOnDisplayNum(App.Displayer.MAIN_DISPLAY_CHANGE_PACE);
+                        break;
+                    case 5:
+                        App.Game.handleActionBasedOnDisplayNum(App.Displayer.MAIN_DISPLAY_CHANGE_RATION);
+                        break;
+                    case 6:
+                        App.Game.handleActionBasedOnDisplayNum(App.Displayer.MAIN_DISPLAY_REST);
+                        break;
+                    case 7:
+                        App.Game.handleActionBasedOnDisplayNum(App.Displayer.MAIN_DISPLAY_TRADE);
+                        break;
+                    case 8:
+                        App.Game.handleActionBasedOnDisplayNum(App.Displayer.MAIN_DISPLAY_TALK);
+                        break;
+                    case 9:
+                        App.Game.handleActionBasedOnDisplayNum(App.Displayer.MAIN_DISPLAY_PURCHASE);
+                        break;
+
+                }
+            }
+
+        });
+
+    })
+}
+
+//(MAIN_DISPLAY_TRAVEL)
+App.Game.actionFor_MainDisplayTravel = function () {
+
+    // For testing purposes remember to remove
+    App.Game.afterSpaceBar(App.Displayer.MAIN_DISPLAY)
+}
+
+//(MAIN_DISPLAY_SUPPLIES)
+App.Game.actionFor_MainDisplaySupplies = function () {
+    // For testing purposes remember to remove
+    App.Game.afterSpaceBar(App.Displayer.MAIN_DISPLAY)
+}
+
+App.Game.actionFor_MainDisplayMap = function () {
+    // For testing purposes remember to remove
+    App.Game.afterSpaceBar(App.Displayer.MAIN_DISPLAY)
+}
+
+App.Game.actionFor_MainDisplayChangePace = function () {
+    // For testing purposes remember to remove
+    App.Game.afterSpaceBar(App.Displayer.MAIN_DISPLAY)
+}
+
+App.Game.actionFor_MainDisplayChangeRation = function () {
+    // For testing purposes remember to remove
+    App.Game.afterSpaceBar(App.Displayer.MAIN_DISPLAY)
+}
+
+App.Game.actionFor_MainDisplayRest = function () {
+    // For testing purposes remember to remove
+    App.Game.afterSpaceBar(App.Displayer.MAIN_DISPLAY)
+}
+
+App.Game.actionFor_MainDisplayTrade = function () {
+    // For testing purposes remember to remove
+    App.Game.afterSpaceBar(App.Displayer.MAIN_DISPLAY)
+}
+
+App.Game.actionFor_MainDisplayTalk = function () {
+    // For testing purposes remember to remove
+    App.Game.afterSpaceBar(App.Displayer.MAIN_DISPLAY)
+}
+
+App.Game.actionFor_MainDisplayPurchase = function () {
+    // For testing purposes remember to remove
+    App.Game.afterSpaceBar(App.Displayer.MAIN_DISPLAY)
+}
 
 
 
@@ -635,3 +784,5 @@ App.Game.afterSpaceBar = function (displayNum) {
 
 // Start the game :p
 App.Game.init();
+
+
