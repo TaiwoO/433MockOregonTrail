@@ -25,89 +25,76 @@ App.State.CARPENTER = "Carpenter";
 App.State.FARMER = "Farmer";
 
 // For Rations
-App.State.FILLING = 3;
-App.State.MEAGER = 2;
-App.State.BEAR_BONES = 1;
+App.State.FILLING = "Filling";
+App.State.MEAGER = "Meager";
+App.State.BARE_BONES = "Bare bones";
 
 // For Pace
 App.State.GRUELING = "Grueling";
 App.State.STRENUOUS = "Strenuous";
 App.State.STEADY = "Steady";
 
-// TODO  
-// For Location
-// For Month
+// For Weather
+App.State.WARM = "Warm";
+App.State.COOL = "Cool";
+App.State.COLD = "Cold" // Not sure
+
 // For Health
 App.State.FAIR = "Fair";
-// App.State.=;
+App.State.POOR = "Poor";
+App.State.CRITICAL = "Critical";
+
+// For Month. NOTE: January=0
+App.State.MARCH = 2;
+App.State.APRIL = 3;
+App.State.MAY = 4;
+App.State.JUNE = 5;
+App.State.JULY = 6;
+
+// For Location
+App.State.KANSAS_RIVER_CROSSING = "Kansas River Crossing";
+
 
 // Initialize the state with a given state
 App.State.init = function (state) {
     // Inventory stuff 
-    this.axles = state.axles;
-    this.cloths = state.cloths;
-    this.food = state.food;
-    this.money = state.money;
-    this.bait = state.bait;
-    this.oxen = state.oxen;
-    this.tongues = state.tongues;
-    this.wheels = state.wheels;
+    this.axles = state.axles || 0;
+    this.cloths = state.cloths || 0;
+    this.food = state.food || 0;
+    this.money = state.money || 0;
+    this.bait = state.bait || 0;
+    this.oxen = state.oxen || 0;
+    this.tongues = state.tongues || 0;
+    this.wheels = state.wheels || 0;
 
-    // Base prices move to db??
-    this.priceOxen = 20;
-    this.priceFood = .20;
-    this.priceCloths = 10;
-    this.priceBait = 2;
-    this.priceWheel = 10;
-    this.priceAxle = 10;
-    this.priceTongue = 10;
+    // Base prices
+    this.priceOxen = state.priceOxen || 20;
+    this.priceFood = state.priceFood || .20;
+    this.priceCloths = state.priceCloths || 10;
+    this.priceBait = state.priceBait || 2;
+    this.priceWheel = state.priceWheel || 10;
+    this.priceAxle = state.priceAxle || 10;
+    this.priceTongue = state.priceTongue || 10;
 
     // Condition stuff
-    this.weather = state.weather;
-    this.health = state.health;
-    this.pace = state.pace;
-    this.ration = state.ration;
+    this.weather = state.weather || App.State.WARM;
+    this.health = state.health || App.State.FAIR;
+    this.pace = state.pace || App.State.STEADY;
+    this.ration = state.ration || App.State.FILLING;
 
     // Others
-    this.leader = state.leader;
-    this.job = state.job;
-    this.party = state.party; // an array of names
-    this.location = state.location;
-    this.date = state.data;
-    this.milesTraveled = state.milesTraveled;
-
-
+    this.leader = state.leader || "";
+    this.job = state.job || "";
+    this.party = state.party || []; // an array of names
+    this.location = state.location || App.State.KANSAS_RIVER_CROSSING;
+    this.date = state.date || new Date("March 1, 1848");
+    this.milesTraveled = state.milesTraveled || 0;
 };
 
 
 // =================== STATE CHANGE FUNCTIONS BASED ON ACTIONS =====================
 
-// Eat Food
-App.State.eat = function () {
 
-    // Subtract food based on the ration. 
-    switch (this.ration) {
-        case App.State.FILLING:
-            this.food -= App.State.FILLING * App.State.FOOD_PER_PERSON;
-            break;
-        case App.State.MEAGER:
-            this.food -= App.State.MEAGER * App.State.FOOD_PER_PERSON;
-            break;
-        case App.State.BEAR_BONES:
-            this.food -= App.State.BEAR_BONES * App.State.FOOD_PER_PERSON;
-            break;
-        default:
-            console.log(" >>POSSIBLE ERROR in State.js<<: Current ration is not set to a proper value. \
-                        Try setting rations to App.State.FILLING, or App.State.MEAGER, or App.State.BEAR_BONES")
-    }
-
-    // No negatives
-    if (this.food < 0) {
-        this.food = 0;
-    }
-
-    console.log("Eating.. Food left: ", this.food)
-};
 
 // Travel a small distance based on the pace
 App.State.travel = function () {
@@ -117,6 +104,8 @@ App.State.travel = function () {
 
 // ===================== SETTERS / UPDATERS =========================
 
+// For states
+//
 App.State.setJob = function (job) {
     this.job = job;
     switch (this.job) {
@@ -149,13 +138,23 @@ App.State.addParty = function (party) {
     console.log("Added:", party, "to the party.", "The current party is now: ", this.party)
 }
 App.State.setMonth = function (month) {
-    this.month = month;
-    console.log("Set month to:", this.month)
+    this.date.setMonth(month)
+    console.log("Set month to:", this.getMonth(), ". The current date is: ", this.date)
+}
+// TODO:
+// App.State.addDay = function() {
+    
+// }
+
+App.State.setLocation = function(location) {
+    this.location = location;
+    console.log("set location to: ", this.location)
 }
 App.State.setMoney = function (money) {
     this.money = money;
-    console.log("Set money to:", this.money)
+    console.log("Set money to:", this.money);
 }
+
 // updates the prices of goods based on location
 App.State.updatePrices = function () {
 
@@ -170,12 +169,39 @@ App.State.updatePrices = function () {
     }
 }
 
+// For conditions
+//
+App.State.setHealther = function(health) {
+    this.health = health;
+    console.log("Set health to:", this.health);
+}
+App.State.setWeather = function(weather) {
+    this.weather = weather;
+    console.log("Set weather to:", this.weather);
+}
+App.State.setPace = function (pace) {
+    this.pace = pace;
+    console.log("Set pace to:", this.pace);
+}
+App.State.setRation = function(ration) {
+    this.ration = ration;
+    console.log("set ration to:", this.ration);
+}
+
+
+// For inventory
+//
 App.State.setOxen = function (val) {
     this.oxen = val;
     console.log("set oxen to:", this.oxen);
 }
 App.State.setFood = function (val) {
     this.food = val;
+
+    // No negatives
+    if (this.food < 0) {
+        this.food = 0;
+    }
     console.log("set food to:", this.food);
 }
 App.State.setCloths = function (val) {
@@ -214,12 +240,45 @@ App.State.getLeader = function () {
 App.State.getParty = function () {
     return this.party;
 }
+// Returns date as the string corresponding to a month number
 App.State.getMonth = function () {
-    return this.month;
+
+    var monthNames = ["January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+    ];
+    var monthNum = this.date.getMonth();
+    return monthNames[monthNum];
 }
 App.State.getDate = function () {
-    return this.data;
+    return this.date;
 }
+App.State.getLocation = function() {
+    return this.location;
+}
+
+// For condition
+//
+App.State.getPace = function() {
+    return this.pace;
+}
+App.State.getRation = function() {
+    return this.ration;
+}
+App.State.getHealth = function () {
+    return this.health;
+}
+App.State.getWeather = function() {
+    return this.weather;
+}
+App.State.getCondition = function () {
+    return {
+        weather: this.weather,
+        health: this.health,
+        pace: this.pace,
+        ration: this.ration
+    }
+}
+
 
 // For Inventory
 //
@@ -265,18 +324,6 @@ App.State.getInventory = function () {
     }
 }
 
-// For Condition
-App.State.getHealth = function() {
-    return this.health;
-}
-App.State.getCondition = function() {
-    return {
-        weather: this.weather,
-        health: this.health,
-        pace: this.pace,
-        ration: this.ration
-    }
-}
 
 // For prices
 //

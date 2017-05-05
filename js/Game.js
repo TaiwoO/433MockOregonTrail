@@ -35,26 +35,7 @@ App.Game.init = function () {
     }
 
     // Initialize the default state of of the app.
-    App.State.init({
-        axles: 0,
-        cloths: 0,
-        food: 0,
-        money: 0,
-        oxen: 0,
-        tongues: 0,
-        wheels: 0,
-        bait: 0,
-        weather: 0,
-        health: 0,
-        pace: 0,
-        ration: 0,
-        leader: "",
-        job: "",
-        party: [],
-        location: "",
-        data: "",
-        milesTraveled: 0
-    })
+    App.State.init({})
 
     // Start the game off with the first display and everything show
     // flow from then on
@@ -344,23 +325,23 @@ App.Game.actionFor_ChooseMonth = function () {
                 // Set Month 
                 switch (parseInt($("#input").val())) {
                     case 1:
-                        App.State.setMonth("March");
+                        App.State.setMonth(App.State.MARCH);
                         App.Game.handleActionBasedOnDisplayNum(App.Displayer.INTERMEDIATE_1)
                         break;
                     case 2:
-                        App.State.setMonth("April")
+                        App.State.setMonth(App.State.APRIL)
                         App.Game.handleActionBasedOnDisplayNum(App.Displayer.INTERMEDIATE_1)
                         break;
                     case 3:
-                        App.State.setMonth("May")
+                        App.State.setMonth(App.State.MAY)
                         App.Game.handleActionBasedOnDisplayNum(App.Displayer.INTERMEDIATE_1)
                         break;
                     case 4:
-                        App.State.setMonth("June")
+                        App.State.setMonth(App.State.JUNE)
                         App.Game.handleActionBasedOnDisplayNum(App.Displayer.INTERMEDIATE_1)
                         break;
                     case 5:
-                        App.State.setMonth("July")
+                        App.State.setMonth(App.State.JULY)
                         App.Game.handleActionBasedOnDisplayNum(App.Displayer.INTERMEDIATE_1)
                         break;
                     case 6:
@@ -652,6 +633,8 @@ App.Game.actionFor_MainDisplay = function () {
     var condition = App.State.getCondition();
 
     $(function () {
+        $("#location").text(App.State.getLocation())
+        $("#date").text(App.State.getDate())
         $("#weather").text(condition.weather);
         $("#health").text(condition.health);
         $("#pace").text(condition.pace);
@@ -706,8 +689,20 @@ App.Game.actionFor_MainDisplayTravel = function () {
 
 //(MAIN_DISPLAY_SUPPLIES)
 App.Game.actionFor_MainDisplaySupplies = function () {
-    // For testing purposes remember to remove
-    App.Game.afterSpaceBar(App.Displayer.MAIN_DISPLAY)
+    let supplies = App.State.getInventory();
+    $(function () {
+
+        $("#oxen").text(supplies.oxen);
+        $("#cloths").text(supplies.cloths);
+        $("#bait").text(supplies.bait);
+        $("#wheel").text(supplies.wheels);
+        $("#axle").text(supplies.axles);
+        $("#tongue").text(supplies.tongues);
+        $("#food").text(supplies.food);
+        $("#money").text(supplies.money);
+
+        App.Game.afterSpaceBar(App.Displayer.MAIN_DISPLAY);
+    })
 }
 
 App.Game.actionFor_MainDisplayMap = function () {
@@ -716,13 +711,63 @@ App.Game.actionFor_MainDisplayMap = function () {
 }
 
 App.Game.actionFor_MainDisplayChangePace = function () {
-    // For testing purposes remember to remove
-    App.Game.afterSpaceBar(App.Displayer.MAIN_DISPLAY)
+    
+    $("#pace").text(App.State.getPace())
+    $(function () {
+
+        $("#input").focus()
+        $("#input").keyup(function (keypressed) {
+
+            if (keypressed.which === 13) {
+                switch (parseInt($("#input").val())) {
+                    case 1:
+                        App.State.setPace(App.State.STEADY)
+                        App.Game.handleActionBasedOnDisplayNum(App.Displayer.MAIN_DISPLAY)
+                        break;
+                    case 2:
+                        App.State.setPace(App.State.STRENUOUS)
+                        App.Game.handleActionBasedOnDisplayNum(App.Displayer.MAIN_DISPLAY)
+                        break;
+                    case 3:
+                        App.State.setPace(App.State.GRUELING)
+                        App.Game.handleActionBasedOnDisplayNum(App.Displayer.MAIN_DISPLAY)
+                        break;
+                    //TODO
+                    //case 4:
+                        
+                        
+                }
+            }
+        });
+    });
+
 }
 
 App.Game.actionFor_MainDisplayChangeRation = function () {
-    // For testing purposes remember to remove
-    App.Game.afterSpaceBar(App.Displayer.MAIN_DISPLAY)
+    $("#ration").text(App.State.getRation())
+    $(function () {
+
+        $("#input").focus()
+        $("#input").keyup(function (keypressed) {
+
+            if (keypressed.which === 13) {
+                switch (parseInt($("#input").val())) {
+                    case 1:
+                        App.State.setRation(App.State.FILLING)
+                        App.Game.handleActionBasedOnDisplayNum(App.Displayer.MAIN_DISPLAY)
+                        break;
+                    case 2:
+                        App.State.setRation(App.State.MEAGER)
+                        App.Game.handleActionBasedOnDisplayNum(App.Displayer.MAIN_DISPLAY)
+                        break;
+                    case 3:
+                        App.State.setRation(App.State.BARE_BONES)
+                        App.Game.handleActionBasedOnDisplayNum(App.Displayer.MAIN_DISPLAY)
+                        break;                
+                }
+            }
+        });
+    });
 }
 
 App.Game.actionFor_MainDisplayRest = function () {
@@ -782,15 +827,14 @@ App.Game.afterSpaceBar = function (displayNum) {
 }
 
 //Stringify's relevant playerData (don't want just App.State or Game, its too much info)
-App.Game.StringifyPlayerData = function ()
-{
+App.Game.StringifyPlayerData = function () {
     //send Player data to the DB
     var playerData = {};
-    playerData["playerName"]    = App.State.getLeader();
-    playerData["playerJob"]     = App.State.getJob();
-    playerData["partyMbrs"]     = App.State.getParty();
-    playerData["playerWallet"]  = App.State.getMoney();
-    playerData["playerInventory"]   = App.State.getInventory();
+    playerData["playerName"] = App.State.getLeader();
+    playerData["playerJob"] = App.State.getJob();
+    playerData["partyMbrs"] = App.State.getParty();
+    playerData["playerWallet"] = App.State.getMoney();
+    playerData["playerInventory"] = App.State.getInventory();
     //can add mileage and other travel data. 
     //Would prefer a separate object that is nested inside playerData
     var playerDataJSON = JSON.stringify(playerData);

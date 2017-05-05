@@ -580,14 +580,14 @@ App.Displayer.showDisplay_MainDisplaySupplies = function () {
             `
             <p> Your Supplies </p>
             <ul> 
-                <li> Oxen</li>
+                <li> Oxen <span id="oxen"><span></li>
                 <li> Set of cloths <span id="cloths"><span></li>
                 <li> Bait <span id="bait"><span></li>
                 <li> Wagon wheels <span id="wheel"><span></li>
-                <li> Wagon axels <span id="axel"><span></li>
+                <li> Wagon axles <span id="axle"><span></li>
                 <li> Wagon tongues <span id="tongue"><span></li>
                 <li> pounds of food <span id="food"><span></li>
-                <li> Money left <span id="money"><span></li>
+                <li> Money left $<span id="money"><span></li>
             </ul>
             <p class="below">Press SPACE BAR to continue</p>            
             `
@@ -614,7 +614,7 @@ App.Displayer.showDisplay_MainDisplayChangePace = function () {
         $("#main").html(
             `
             <p>Change pace</p>
-            <p>currently <span id="pace"><span></p>
+            <p>currently "<span id="pace"><span>"</p>
 
             <p>The pace at which you travel can change. Your choices are: </p>
             <ol> 
@@ -638,9 +638,9 @@ App.Displayer.showDisplay_MainDisplayChangeRation = function () {
         $("#main").html(
             `
             <p>Change food rations</p>
-            <p>currently <span id="ration"><span></p>
+            <p>currently <span id="ration"></span></p>
 
-            <p>The amount of food the people in yuor party can eat each day can change. These amounts are </p>
+            <p>The amount of food the people in your party can eat each day can change. These amounts are </p>
             <ol> 
                 <li> Filling - meals are large and generous</li>
                 <li> Meager - meals are small, but adequate</li>
@@ -665,7 +665,7 @@ App.Displayer.showDisplay_MainDisplayTrade = function () {
                 <li> Set of cloths <span id="cloths"><span></li>
                 <li> Bait <span id="bait"><span></li>
                 <li> Wagon wheels <span id="wheel"><span></li>
-                <li> Wagon axels <span id="axel"><span></li>
+                <li> Wagon axles <span id="axle"><span></li>
                 <li> Wagon tongues <span id="tongue"><span></li>
                 <li> pounds of food <span id="food"><span></li>
                 <li> Money left <span id="money"><span></li>
@@ -701,7 +701,7 @@ App.Displayer.showDisplay_MainDisplayPurchase= function () {
                 <li> Clothing <span id="price-cloths"><span> per set</li>
                 <li> Bait <span id="price-bait"><span> per box</li>
                 <li> Wagon wheels <span id="price-wheel"><span> per wheel</li>
-                <li> Wagon axels <span id="price-axel"><span>per axel</li>
+                <li> Wagon axles <span id="price-axle"><span>per axle</li>
                 <li> Wagon tongues <span id="price-tongue"><span>per tongue</li>
                 <li> pounds of food <span id="price-food"><span>per pound</li>
                 <li> Leave store</li>

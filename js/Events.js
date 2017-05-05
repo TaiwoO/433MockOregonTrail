@@ -1,3 +1,4 @@
+"use strict"
 /**
  * SUMMARY: 
  *      Handels the flow of the application
@@ -13,5 +14,24 @@
  *      - etc....  
  */
 
+App.Event = {}
+
+// Eat Food
+App.Event.eat = function () {
+    var currentFood = App.State.getFood();
+    var foodToEat = 0;
+    // Subtract food based on the ration. 
+    switch (App.State.getRation()) {
+        case App.State.FILLING:
+            break;
+        case App.State.MEAGER:
+            break;
+        case App.State.BEAR_BONES:
+            break;
+        default:
+            console.log(" >>POSSIBLE ERROR in Event.js<<: No ration value of ", App.State.getRation())
+    }
 
 
+    console.log("Eating....")
+};
