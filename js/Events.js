@@ -35,3 +35,8 @@ App.Event.eat = function () {
 
     console.log("Eating....")
 };
+
+// Travel a small distance based on the pace
+App.Event.travel = function () {
+    console.log("Traveling...");
+};

@@ -614,7 +614,7 @@ App.Displayer.showDisplay_MainDisplayChangePace = function () {
         $("#main").html(
             `
             <p>Change pace</p>
-            <p>currently "<span id="pace"><span>"</p>
+            <p>currently "<span id="pace"></span>"</p>
 
             <p>The pace at which you travel can change. Your choices are: </p>
             <ol> 
@@ -638,7 +638,7 @@ App.Displayer.showDisplay_MainDisplayChangeRation = function () {
         $("#main").html(
             `
             <p>Change food rations</p>
-            <p>currently <span id="ration"></span></p>
+            <p>currently "<span id="ration"></span>"</p>
 
             <p>The amount of food the people in your party can eat each day can change. These amounts are </p>
             <ol> 
@@ -698,19 +698,24 @@ App.Displayer.showDisplay_MainDisplayPurchase= function () {
              <p> You may buy: </p>
             <ol> 
                 <li> Oxen  <span id="price-oxen"></span> per ox</li>
-                <li> Clothing <span id="price-cloths"><span> per set</li>
-                <li> Bait <span id="price-bait"><span> per box</li>
-                <li> Wagon wheels <span id="price-wheel"><span> per wheel</li>
-                <li> Wagon axles <span id="price-axle"><span>per axle</li>
-                <li> Wagon tongues <span id="price-tongue"><span>per tongue</li>
-                <li> pounds of food <span id="price-food"><span>per pound</li>
+                <li> Clothing <span id="price-cloths"></span> per set</li>
+                <li> Bait <span id="price-bait"></span> per box</li>
+                <li> Wagon wheels <span id="price-wheel"></span> per wheel</li>
+                <li> Wagon axles <span id="price-axle"></span>per axle</li>
+                <li> Wagon tongues <span id="price-tongue"></span>per tongue</li>
+                <li> pounds of food <span id="price-food"></span>per pound</li>
                 <li> Leave store</li>
             </ol>
-            <p> You have $<span id="money"><span> to spend.</p>
+            <p> You have $<span id="money"></span> to spend.</p>
             <p>Which number? <input type="number" id="input" name="input" min="1" max="8"></p>
             
             <!-- This display is dependent on user choice. Will be hidden until choice is made.-->
-            <p hidden>How many <span id="item"></span> ? <input type="number" id="input2" name="input" min="1" max="8"></p>
+            <p id="purchase-display" hidden>How many <span id="item"></span> ? <input type="number" id="input2" name="input" min="1" max="8"></p>
+
+            <div hidden id="warning"> 
+                <p>You cannot afford that may</p>
+                <p class="below center"> Press SPACE BAR to continue</p>
+            </div>
 
             `
         );

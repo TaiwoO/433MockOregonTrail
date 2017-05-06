@@ -185,11 +185,9 @@ App.Game.handleActionBasedOnDisplayNum = function (displayNum) {
 
 // ================================ ALL ACTIONS FOR THE DISPLAYS ============================
 
-/**
- * ================================================================
+/**================================================================
  * PART 1: Setting up character and getting to Matt's store
- * ================================================================
- */
+ * ================================================================*/
 
 // Profession selection (CHOOSE_PROFESSION)
 App.Game.actionFor_ChooseProfession = function () {
@@ -380,8 +378,7 @@ App.Game.actionFor_Intermediate2 = function () {
 
 /**================================================================
  * PART 2: At Matt's store
- * ================================================================
- */
+ * ================================================================*/
 
 // Matt's General Store (GENERALSTORE)
 App.Game.actionFor_GeneralStore = function () {
@@ -458,6 +455,7 @@ App.Game.actionFor_GeneralStore = function () {
                     App.State.setAxles(shoppingCart["axle"]);
                     App.State.setTongues(shoppingCart["tongue"]);
 
+                    App.Game.clearShoppingCart();
                     // Continue 
                     App.Game.handleActionBasedOnDisplayNum(App.Displayer.INTERMEDIATE_3)
                 }
@@ -610,9 +608,8 @@ App.Game.actionFor_GeneralStoreTongue = function () {
 }
 
 /**================================================================
- * PART 3: Primary disply of the game
- * ================================================================
- */
+ * PART 3: Primary display of the game
+ * ================================================================*/
 
 // Text directly after making purchases at Matt's store (INTERMEDIATE_3)
 App.Game.actionFor_Intermediate3 = function () {
@@ -711,9 +708,9 @@ App.Game.actionFor_MainDisplayMap = function () {
 }
 
 App.Game.actionFor_MainDisplayChangePace = function () {
-    
-    $("#pace").text(App.State.getPace())
+
     $(function () {
+        $("#pace").text(App.State.getPace())
 
         $("#input").focus()
         $("#input").keyup(function (keypressed) {
@@ -734,8 +731,6 @@ App.Game.actionFor_MainDisplayChangePace = function () {
                         break;
                     //TODO
                     //case 4:
-                        
-                        
                 }
             }
         });
@@ -744,8 +739,8 @@ App.Game.actionFor_MainDisplayChangePace = function () {
 }
 
 App.Game.actionFor_MainDisplayChangeRation = function () {
-    $("#ration").text(App.State.getRation())
     $(function () {
+        $("#ration").text(App.State.getRation())
 
         $("#input").focus()
         $("#input").keyup(function (keypressed) {
@@ -763,7 +758,7 @@ App.Game.actionFor_MainDisplayChangeRation = function () {
                     case 3:
                         App.State.setRation(App.State.BARE_BONES)
                         App.Game.handleActionBasedOnDisplayNum(App.Displayer.MAIN_DISPLAY)
-                        break;                
+                        break;
                 }
             }
         });
@@ -786,8 +781,242 @@ App.Game.actionFor_MainDisplayTalk = function () {
 }
 
 App.Game.actionFor_MainDisplayPurchase = function () {
-    // For testing purposes remember to remove
-    App.Game.afterSpaceBar(App.Displayer.MAIN_DISPLAY)
+    var prices = App.State.getPrice();
+
+    $(function () {
+        $("#price-oxen").text(prices.oxen);
+        $("#price-cloths").text(prices.cloths);
+        $("#price-bait").text(prices.bait);
+        $("#price-wheel").text(prices.wheel);
+        $("#price-axle").text(prices.axle);
+        $("#price-tongue").text(prices.tongue);
+        $("#price-food").text(prices.food);
+        $("#money").text(App.State.getMoney());
+
+
+        $("#input").focus()
+        $("#input").keyup(function (keypressed) {
+
+            if (keypressed.which === 13) {
+                switch (parseInt($("#input").val())) {
+
+                    case 1:
+                        $("#input").attr('disabled', 'disabled');
+                        $("#purchase-display").show(); // where user types amount to purchase 
+                        $("#input2").focus();
+                        $("#item").text("oxen")
+
+                        // Move on to the next input
+                        $("#input2").keyup(function (keypressed) {
+                            var currentOxen = App.State.getOxen();
+                            var numOxenToBuy = parseInt($("#input2").val())
+                            var currentMoney = App.State.getMoney();
+                            if (keypressed.which === 13) {
+                                var totalPrice = numOxenToBuy * prices.oxen;
+
+                                // Display warning and refresh this page
+                                if (totalPrice > currentMoney) {
+                                    // display warning
+                                    $("#warning").show();
+                                    App.Game.afterSpaceBar(App.Displayer.MAIN_DISPLAY_PURCHASE)
+                                }
+
+                                // Make the purchase and refresh this page
+                                else {
+                                    App.State.setOxen(currentOxen + numOxenToBuy);
+                                    App.State.setMoney((currentMoney - totalPrice).toFixed(2));
+                                    App.Game.handleActionBasedOnDisplayNum(App.Displayer.MAIN_DISPLAY_PURCHASE)
+                                }
+                            }
+                        })
+                        break;
+                    case 2:
+                        $("#input").attr('disabled', 'disabled');
+                        $("#purchase-display").show(); // where user types amount to purchase 
+                        $("#input2").focus();
+                        $("#item").text("cloths")
+
+                        // Move on to the next input
+                        $("#input2").keyup(function (keypressed) {
+                            var currentCloths = App.State.getCloths();
+                            var numClothsToBuy = parseInt($("#input2").val())
+                            var currentMoney = App.State.getMoney();
+                            if (keypressed.which === 13) {
+                                var totalPrice = numClothsToBuy * prices.cloths;
+
+                                // Display warning and refresh this page
+                                if (totalPrice > currentMoney) {
+                                    // display warning
+                                    $("#warning").show();
+                                    App.Game.afterSpaceBar(App.Displayer.MAIN_DISPLAY_PURCHASE)
+                                }
+
+                                // Make the purchase and refresh this page
+                                else {
+                                    App.State.setCloths(currentCloths + numClothsToBuy);
+                                    App.State.setMoney((currentMoney - totalPrice).toFixed(2));
+                                    App.Game.handleActionBasedOnDisplayNum(App.Displayer.MAIN_DISPLAY_PURCHASE)
+                                }
+                            }
+                        })
+                        break;
+                    case 3:
+                        $("#input").attr('disabled', 'disabled');
+                        $("#purchase-display").show(); // where user types amount to purchase 
+                        $("#input2").focus();
+                        $("#item").text("Bait")
+
+                        // Move on to the next input
+                        $("#input2").keyup(function (keypressed) {
+                            var currentBait = App.State.getBait();
+                            var numBaitToBuy = parseInt($("#input2").val())
+                            var currentMoney = App.State.getMoney();
+                            if (keypressed.which === 13) {
+                                var totalPrice = numBaitToBuy * prices.bait;
+
+                                // Display warning and refresh this page
+                                if (totalPrice > currentMoney) {
+                                    // display warning
+                                    $("#warning").show();
+                                    App.Game.afterSpaceBar(App.Displayer.MAIN_DISPLAY_PURCHASE)
+                                }
+
+                                // Make the purchase and refresh this page
+                                else {
+                                    App.State.setBait(currentBait + numBaitToBuy);
+                                    App.State.setMoney((currentMoney - totalPrice).toFixed(2));
+                                    App.Game.handleActionBasedOnDisplayNum(App.Displayer.MAIN_DISPLAY_PURCHASE)
+                                }
+                            }
+                        })
+                        break;
+                    case 4:
+                        $("#input").attr('disabled', 'disabled');
+                        $("#purchase-display").show(); // where user types amount to purchase 
+                        $("#input2").focus();
+                        $("#item").text("wheels")
+
+                        // Move on to the next input
+                        $("#input2").keyup(function (keypressed) {
+                            var currentWheels = App.State.getWheel();
+                            var numWheelsToBuy = parseInt($("#input2").val())
+                            var currentMoney = App.State.getMoney();
+                            if (keypressed.which === 13) {
+                                var totalPrice = numWheelsToBuy * prices.wheel;
+
+                                // Display warning and refresh this page
+                                if (totalPrice > currentMoney) {
+                                    // display warning
+                                    $("#warning").show();
+                                    App.Game.afterSpaceBar(App.Displayer.MAIN_DISPLAY_PURCHASE)
+                                }
+
+                                // Make the purchase and refresh this page
+                                else {
+                                    App.State.setWheels(currentWheels + numWheelsToBuy);
+                                    App.State.setMoney((currentMoney - totalPrice).toFixed(2));
+                                    App.Game.handleActionBasedOnDisplayNum(App.Displayer.MAIN_DISPLAY_PURCHASE)
+                                }
+                            }
+                        })
+                        break;
+                    case 5:
+                        $("#input").attr('disabled', 'disabled');
+                        $("#purchase-display").show(); // where user types amount to purchase 
+                        $("#input2").focus();
+                        $("#item").text("axles")
+
+                        // Move on to the next input
+                        $("#input2").keyup(function (keypressed) {
+                            var currentAxles = App.State.getAxle();
+                            var numAxlesToBuy = parseInt($("#input2").val())
+                            var currentMoney = App.State.getMoney();
+                            if (keypressed.which === 13) {
+                                var totalPrice = numAxlesToBuy * prices.axle;
+
+                                // Display warning and refresh this page
+                                if (totalPrice > currentMoney) {
+                                    // display warning
+                                    $("#warning").show();
+                                    App.Game.afterSpaceBar(App.Displayer.MAIN_DISPLAY_PURCHASE)
+                                }
+
+                                // Make the purchase and refresh this page
+                                else {
+                                    App.State.setAxles(currentAxles + numAxlesToBuy);
+                                    App.State.setMoney((currentMoney - totalPrice).toFixed(2));
+                                    App.Game.handleActionBasedOnDisplayNum(App.Displayer.MAIN_DISPLAY_PURCHASE)
+                                }
+                            }
+                        })
+                        break;
+                    case 6:
+                        $("#input").attr('disabled', 'disabled');
+                        $("#purchase-display").show(); // where user types amount to purchase 
+                        $("#input2").focus();
+                        $("#item").text("tongues")
+
+                        // Move on to the next input
+                        $("#input2").keyup(function (keypressed) {
+                            var currentTongue = App.State.getTongue();
+                            var numTonguesToBuy = parseInt($("#input2").val())
+                            var currentMoney = App.State.getMoney();
+                            if (keypressed.which === 13) {
+                                var totalPrice = numTonguesToBuy * prices.tongue;
+
+                                // Display warning and refresh this page
+                                if (totalPrice > currentMoney) {
+                                    // display warning
+                                    $("#warning").show();
+                                    App.Game.afterSpaceBar(App.Displayer.MAIN_DISPLAY_PURCHASE)
+                                }
+
+                                // Make the purchase and refresh this page
+                                else {
+                                    App.State.setTongues(currentTongue + numTonguesToBuy);
+                                    App.State.setMoney((currentMoney - totalPrice).toFixed(2));
+                                    App.Game.handleActionBasedOnDisplayNum(App.Displayer.MAIN_DISPLAY_PURCHASE)
+                                }
+                            }
+                        })
+                        break;
+                    case 7:
+                        $("#input").attr('disabled', 'disabled');
+                        $("#purchase-display").show(); // where user types amount to purchase 
+                        $("#input2").focus();
+                        $("#item").text("pounds of food")
+
+                        // Move on to the next input
+                        $("#input2").keyup(function (keypressed) {
+                            var currentFood = App.State.getFood();
+                            var numFoodToBuy = parseInt($("#input2").val())
+                            var currentMoney = App.State.getMoney();
+                            if (keypressed.which === 13) {
+                                var totalPrice = numFoodToBuy * prices.food;
+
+                                // Display warning and refresh this page
+                                if (totalPrice > currentMoney) {
+                                    // display warning
+                                    $("#warning").show();
+                                    App.Game.afterSpaceBar(App.Displayer.MAIN_DISPLAY_PURCHASE)
+                                }
+
+                                // Make the purchase and refresh this page
+                                else {
+                                    App.State.setFood(currentFood + numFoodToBuy);
+                                    App.State.setMoney((currentMoney - totalPrice).toFixed(2));
+                                    App.Game.handleActionBasedOnDisplayNum(App.Displayer.MAIN_DISPLAY_PURCHASE)
+                                }
+                            }
+                        })
+                        break;
+                    case 8:
+                        App.Game.handleActionBasedOnDisplayNum(App.Displayer.MAIN_DISPLAY)
+                        break;
+                }
+            }
+        });
+    });
 }
 
 
@@ -810,6 +1039,20 @@ App.Game.getshoppingCartTotal = function () {
 
     return total.toFixed(2);
 }
+
+// empties items in the shopping cart
+App.Game.clearShoppingCart = function () {
+    App.Game.shoppingCart = {
+        oxen: 0,
+        food: 0,
+        cloths: 0,
+        bait: 0,
+        axle: 0,
+        tongue: 0,
+        wheel: 0
+    }
+}
+
 
 // Runs the action for a display after spacebar is pressed
 App.Game.afterSpaceBar = function (displayNum) {

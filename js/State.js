@@ -91,21 +91,13 @@ App.State.init = function (state) {
     this.milesTraveled = state.milesTraveled || 0;
 };
 
+/**================================================================
+ *                           SETTERS / UPDATERS
+ * ================================================================*/ 
 
-// =================== STATE CHANGE FUNCTIONS BASED ON ACTIONS =====================
-
-
-
-// Travel a small distance based on the pace
-App.State.travel = function () {
-    console.log("Traveling...");
-};
-
-
-// ===================== SETTERS / UPDATERS =========================
-
-// For states
-//
+/**  
+ * For states
+ * */
 App.State.setJob = function (job) {
     this.job = job;
     switch (this.job) {
@@ -143,16 +135,12 @@ App.State.setMonth = function (month) {
 }
 // TODO:
 // App.State.addDay = function() {
-    
+
 // }
 
-App.State.setLocation = function(location) {
+App.State.setLocation = function (location) {
     this.location = location;
     console.log("set location to: ", this.location)
-}
-App.State.setMoney = function (money) {
-    this.money = money;
-    console.log("Set money to:", this.money);
 }
 
 // updates the prices of goods based on location
@@ -169,13 +157,14 @@ App.State.updatePrices = function () {
     }
 }
 
-// For conditions
-//
-App.State.setHealther = function(health) {
+/** 
+ * For conditions
+ * */
+App.State.setHealther = function (health) {
     this.health = health;
     console.log("Set health to:", this.health);
 }
-App.State.setWeather = function(weather) {
+App.State.setWeather = function (weather) {
     this.weather = weather;
     console.log("Set weather to:", this.weather);
 }
@@ -183,18 +172,24 @@ App.State.setPace = function (pace) {
     this.pace = pace;
     console.log("Set pace to:", this.pace);
 }
-App.State.setRation = function(ration) {
+App.State.setRation = function (ration) {
     this.ration = ration;
     console.log("set ration to:", this.ration);
 }
 
 
-// For inventory
-//
+/** 
+ * For inventory
+ * */
 App.State.setOxen = function (val) {
     this.oxen = val;
     console.log("set oxen to:", this.oxen);
 }
+App.State.addOxen = function (oxen) {
+    this.oxen += val;
+    console.log("Added:", oxen,"oxen. Total oxen is now:", this.oxen);
+}
+
 App.State.setFood = function (val) {
     this.food = val;
 
@@ -224,13 +219,19 @@ App.State.setTongues = function (val) {
     this.tongues = val;
     console.log("set tongues to:", this.tongues);
 }
+App.State.setMoney = function (money) {
+    this.money = money;
+    console.log("Set money to:", this.money);
+}
 
 
+/**================================================================
+ *                           GETTERS
+ * ================================================================*/ 
 
-// ===================== GETTERS =========================
-
-// For states
-//
+/** 
+ * For states
+ * */
 App.State.getJob = function () {
     return this.job;
 }
@@ -252,22 +253,23 @@ App.State.getMonth = function () {
 App.State.getDate = function () {
     return this.date;
 }
-App.State.getLocation = function() {
+App.State.getLocation = function () {
     return this.location;
 }
 
-// For condition
-//
-App.State.getPace = function() {
+/** 
+ * For condition
+ * */
+App.State.getPace = function () {
     return this.pace;
 }
-App.State.getRation = function() {
+App.State.getRation = function () {
     return this.ration;
 }
 App.State.getHealth = function () {
     return this.health;
 }
-App.State.getWeather = function() {
+App.State.getWeather = function () {
     return this.weather;
 }
 App.State.getCondition = function () {
@@ -280,19 +282,19 @@ App.State.getCondition = function () {
 }
 
 
-// For Inventory
-//
+/** 
+ * For Inventory
+ * */
 App.State.getMoney = function () {
     return this.money;
 }
-
 App.State.getOxen = function () {
     return this.oxen;
 }
 App.State.getFood = function () {
     return this.food;
 }
-App.State.getClothing = function () {
+App.State.getCloths= function () {
     return this.cloths;
 }
 App.State.getBait = function () {
@@ -307,10 +309,7 @@ App.State.getAxle = function () {
 App.State.getTongue = function () {
     return this.tongues;
 }
-App.State.getInventory = function () {
-    return App.Game.shoppingCart;
 
-}
 App.State.getInventory = function () {
     return {
         axles: this.axles,
@@ -325,9 +324,9 @@ App.State.getInventory = function () {
 }
 
 
-// For prices
-//
-
+/** 
+ * For prices
+ * */
 App.State.getPriceOxen = function () {
     return this.priceOxen;
 }
@@ -349,8 +348,21 @@ App.State.getPriceAxle = function () {
 App.State.getPriceTongue = function () {
     return this.priceTongue;
 }
+App.State.getPrice = function () {
+    return {
+        oxen: this.priceOxen,
+        food: this.priceFood,
+        cloths: this.priceCloths,
+        bait: this.priceBait,
+        wheel: this.priceWheel,
+        axle: this.priceAxle,
+        tongue: this.priceTongue
+    }
+}
 
-// ======================= OTHER USEFUL STUFF ===============================
+/**================================================================
+ *                           OTHER USEFUL METHODS
+ * ================================================================*/ 
 
 // See the state in the console nicely
 App.State.dumpState = function () {
