@@ -57,6 +57,7 @@ App.Displayer.MAIN_DISPLAY_REST = 25;
 App.Displayer.MAIN_DISPLAY_TRADE = 26;
 App.Displayer.MAIN_DISPLAY_TALK = 27;
 App.Displayer.MAIN_DISPLAY_PURCHASE = 28;
+App.Displayer.PACE_DIFFERENCES = 29;
 // App.Displayer.;
 // App.Displayer.;
 // App.Displayer.;
@@ -169,6 +170,9 @@ App.Displayer.showDisplayNum = function (displayNumber) {
         case App.Displayer.MAIN_DISPLAY_PURCHASE = 28:
             App.Displayer.showDisplay_MainDisplayPurchase()
             break;
+	case App.Displayer.PACE_DIFFERENCES = 29;
+	    App.Displayer.showDisplay_PaceDifferences()
+	    break;
 
         default:
             console.log(" >>POSSIBLE ERROR in Displayer.js<< No Display Number:", displayNumber)
@@ -563,11 +567,40 @@ App.Displayer.showDisplay_MainDisplay = function () {
     });
 }
 
-// TODO: (MAIN_DISPLAY_TRAVEL) 
+// (MAIN_DISPLAY_TRAVEL) 
 App.Displayer.showDisplay_MainDisplayTravel = function () {
     $(document).ready(function () {
         $("#main").html(
             `
+	//Add image of trail
+	<table id="trailStatus">
+		<tr>
+			<th colspan="2" class="below"> Press SPACE to size up the situation </th>
+		</tr>
+		<tr>
+			<td> Date: </td>
+			<td id="currentDate"> </td>
+		<tr>
+			<td> Weather: </td>
+			<td id="currentWeather"> </td>
+		</tr>
+		<tr>
+			<td> Health: </td>
+			<td id="currentHealth"> </td>
+		</tr>
+		<tr>
+			<td> Food: </td>
+			<td id="currentFood"> </td>
+		</tr>
+		<tr>
+			<td> Next Landmark </td>
+			<td id="nextLandmark"> </td>
+		</tr>
+		<tr>
+			<td> Miles Traveled: </td>
+			<td id="totalMiles"> </td>
+		</tr>
+	</table>
             `
         );
     });
@@ -630,6 +663,30 @@ App.Displayer.showDisplay_MainDisplayChangePace = function () {
             `
         );
     });
+}
+
+App.Displayer.showDisplay_PaceDifferences = function() {
+    $(document.ready(function() {
+	$("#main").html(
+	`
+	<p>
+	steady - You travel about 8 hours a day, taking frequent rest. You take care not to get too tired
+	</p>
+	<br>
+	<p>
+	strenuous - You travel about 12 hours a day, starting just after sunrise and stopping shortly before sunset.
+	You stop to rest only when necessary. You finish each day feeling very tired.
+	</p>
+	<br>
+	<p>
+	grueling - You travel about 16 hours a day, starting before sunrise and continuing until dark.
+	You almost never stop to rest. You do not get enough sleep at night. 
+	You finish each day feeling absolutely exhausted, and your health suffers.
+	</p>
+	<p class="below">Press SPACE BAR to continue</p>
+	`
+	)
+    )}
 }
 
 // (MAIN_DISPLAY_CHANGE_RATION)
