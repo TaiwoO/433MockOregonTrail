@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<style>
+#container {
+	width: 500px;
+	height: 50px;
+	position: relative;
+	background: black;
+}
+#cart {
+	width: 50px;
+	height: 50px;
+	bottom: 0;
+	right: 0;
+	position: absolute;
+}
+#container2{
+	width: 500px;
+	height:50px;
+	position:relative;
+	background: #4DBD33;
+}
+#river{
+	width: 40px;
+	height: 20px;
+	bottom: 0;
+	left: 0;
+	position: absolute;
+}
+</style>
+<body>
+
+<p>
+<button onclick="myMove()">Click Me</button>
+</p> 
+
+<div id ="container">
+
+<img src="river.jpg" id="river">
+
+<img src="cart.jpg" id="cart">
+
+</div>
+</div>
+
+<div id ="container2"></div>
+
+<script>
+function myMove() {
+  var elem = document.getElementById("cart");   
+  var pos = 0;
+  var width = 500 - 90; //#container width - (cart width + river width) has to be hardcoded. style.width returns "500px"
+  var days = 20; //Will have to be set from game
+  var distance = width/days; 
+  var id = setInterval(function(){frame(width, distance)}, 500); //function the animation calls, time between each move in ms
+  function frame(width, distance) { //Might change this to a for loop
+    if (pos == width) {
+      clearInterval(id);
+    } else {
+      pos = pos + distance; 
+      elem.style.right = pos + 'px'; 
+    }
+  }
+}
+</script>
+
+</body>
+</html>
