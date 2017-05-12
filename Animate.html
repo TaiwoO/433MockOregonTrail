@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<style>
+#container {
+	width: 500px;
+	height: 50px;
+	position: relative;
+	background: black;
+}
+#cart {
+	width: 60px;
+	width: 60px;
+	height: 50px;
+	bottom: 0;
+	right: 0;
+	position: absolute;
+}
+#cart2 {
+	width: 60px;
+	width: 60px;
+	height: 50px;
+	bottom: 0;
+	right: 0;
+	position: absolute;
+}
+#cart3 {
+	width: 60px;
+	width: 60px;
+	height: 50px;
+	bottom: 0;
+	right: 0;
+	position: absolute;
+}
+#container2{
+	width: 500px;
+	height:50px;
+	position:relative;
+	background: #4DBD33;
+}
+#river{
+	width: 40px;
+	height: 20px;
+	bottom: 0;
+	left: 0;
+	position: absolute;
+}
+#fort{
+	width: 40px;
+	height: 30px;
+	bottom: 0;
+	left: 0;
+	position: absolute;
+}
+#rock{
+	width: 40px;
+	height: 40px;
+	bottom: 0;
+	left: 0;
+	position: absolute;
+}
+</style>
+<body>
+
+<p>
+<button onclick="move1()">Click Me</button>
+<button onclick="move2()">Click Me</button>
+<button onclick="move3()">Click Me</button>
+</p> 
+
+<div id ="container">
+
+<img src="River.jpg" id="river">
+
+<img src="Cart.jpg" id="cart">
+
+</div>
+</div>
+
+<div id ="container2"></div>
+<br>
+
+<div id ="container">
+
+<img src="Fort.jpg" id="fort">
+
+<img src="Cart.jpg" id="cart2">
+
+</div>
+
+</div>
+
+<div id ="container2"></div>
+<br>
+<div id ="container">
+
+<img src="Rock.jpg" id="rock">
+
+<img src="Cart.jpg" id="cart3">
+
+</div>
+</div>
+
+<div id ="container2"></div>
+
+<script>
+function move1() {
+  var elem = document.getElementById("cart");   
+  var pos = 0;
+  var width = 500 - 100; //#container width - (cart width + river width) has to be hardcoded. style.width returns "500px"
+  var days = 20; //Will have to be set from game
+  var distance = width/days; 
+  var id = setInterval(function(){frame(width, distance)}, 500); //function the animation calls, time between each move in ms
+  function frame(width, distance) {
+    if (pos == width) {
+      clearInterval(id);
+    } else {
+      pos = pos + distance; 
+      elem.style.right = pos + 'px'; 
+    }
+  }
+}
+function move2() {
+  var elem = document.getElementById("cart2");   
+  var pos = 0;
+  var width = 500 - 100; //#container width - (cart width + fort width) has to be hardcoded. style.width returns "500px"
+  var days = 20; //Will have to be set from game
+  var distance = width/days; 
+  var id = setInterval(function(){frame(width, distance)}, 500); //function the animation calls, time between each move in ms
+  function frame(width, distance) {
+    if (pos == width) {
+      clearInterval(id);
+    } else {
+      pos = pos + distance; 
+      elem.style.right = pos + 'px'; 
+    }
+  }
+}
+
+function move3() {
+  var elem = document.getElementById("cart3");   
+  var pos = 0;
+  var width = 500 - 100; //#container width - (cart width + rock width) has to be hardcoded. style.width returns "500px"
+  var days = 20; //Will have to be set from game
+  var distance = width/days; 
+  var id = setInterval(function(){frame(width, distance)}, 500); //function the animation calls, time between each move in ms
+  function frame(width, distance) {
+    if (pos == width) {
+      clearInterval(id);
+    } else {
+      pos = pos + distance; 
+      elem.style.right = pos + 'px'; 
+    }
+  }
+}
+</script>
+
+</body>
+</html>
