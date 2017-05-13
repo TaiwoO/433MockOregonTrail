@@ -170,9 +170,9 @@ App.Displayer.showDisplayNum = function (displayNumber) {
         case App.Displayer.MAIN_DISPLAY_PURCHASE = 28:
             App.Displayer.showDisplay_MainDisplayPurchase()
             break;
-	case App.Displayer.PACE_DIFFERENCES = 29;
-	    App.Displayer.showDisplay_PaceDifferences()
-	    break;
+        case App.Displayer.PACE_DIFFERENCES = 29:
+            App.Displayer.showDisplay_PaceDifferences()
+            break;
 
         default:
             console.log(" >>POSSIBLE ERROR in Displayer.js<< No Display Number:", displayNumber)
@@ -665,28 +665,28 @@ App.Displayer.showDisplay_MainDisplayChangePace = function () {
     });
 }
 
-App.Displayer.showDisplay_PaceDifferences = function() {
-    $(document.ready(function() {
-	$("#main").html(
-	`
-	<p>
-	steady - You travel about 8 hours a day, taking frequent rest. You take care not to get too tired
-	</p>
-	<br>
-	<p>
-	strenuous - You travel about 12 hours a day, starting just after sunrise and stopping shortly before sunset.
-	You stop to rest only when necessary. You finish each day feeling very tired.
-	</p>
-	<br>
-	<p>
-	grueling - You travel about 16 hours a day, starting before sunrise and continuing until dark.
-	You almost never stop to rest. You do not get enough sleep at night. 
-	You finish each day feeling absolutely exhausted, and your health suffers.
-	</p>
-	<p class="below">Press SPACE BAR to continue</p>
-	`
-	)
-    )}
+App.Displayer.showDisplay_PaceDifferences = function () {
+    $(document).ready(function () {
+        $("#main").html(
+            `
+            <p>
+                steady - You travel about 8 hours a day, taking frequent rest. You take care not to get too tired
+            </p>
+            <br>
+            <p>
+                strenuous - You travel about 12 hours a day, starting just after sunrise and stopping shortly before sunset.
+                You stop to rest only when necessary. You finish each day feeling very tired.
+            </p>
+            <br>
+            <p>
+                grueling - You travel about 16 hours a day, starting before sunrise and continuing until dark.
+                You almost never stop to rest. You do not get enough sleep at night. 
+                You finish each day feeling absolutely exhausted, and your health suffers.
+            </p>
+            <p class="below">Press SPACE BAR to continue</p>
+            `
+        );
+    });
 }
 
 // (MAIN_DISPLAY_CHANGE_RATION)
@@ -748,7 +748,7 @@ App.Displayer.showDisplay_MainDisplayTalk = function () {
 }
 
 // (MAIN_DISPLAY_PURCHASE)
-App.Displayer.showDisplay_MainDisplayPurchase= function () {
+App.Displayer.showDisplay_MainDisplayPurchase = function () {
     $(document).ready(function () {
         $("#main").html(
             `
