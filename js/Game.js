@@ -722,7 +722,7 @@ App.Game.actionFor_MainDisplayTravel = function () {
             updateStatusBox();
         }, 700);
 
-        // user leaves the journey before reaching destination
+        // User singnals to leave the journey
         $(document).keyup(function (keypressed) {
             // 32 is Space bar
             if (keypressed.which == 32) {
@@ -1136,19 +1136,13 @@ App.Game.afterSpaceBar = function (displayNum) {
 // Gives the image address of the next location's landmark object
 App.Game.getNextLocationObject = function (currentLocation) {
 
-    switch (currentLocation) {
-        // Landmark after Independence is a river
-        case App.State.INDEPENDENCE:
+    var nextLocationType = currentLocation.nextLocation.type
+    switch (nextLocationType) {
+        case App.State.CROSSING:
             return App.Displayer.RIVER;
-        case App.State.KANSAS_RIVER_CROSSING:
-            return App.Displayer.RIVER;
-        case App.State.BIG_BLUE_RIVER_CROSSING:
+        case App.State.FORT:
             return App.Displayer.FORT;
-        case App.State.FORT_KEARNEY:
-            return App.Displayer.ROCK;
-        case App.State.CHIMNEY_ROCK:
-            return App.Displayer.FORT;
-        case App.State.FORT_LARAMIE:
+        case App.State.ROCK:
             return App.Displayer.ROCK;
         // TODO: Other location
     }

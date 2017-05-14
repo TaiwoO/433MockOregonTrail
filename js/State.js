@@ -51,19 +51,25 @@ App.State.MAY = 4;
 App.State.JUNE = 5;
 App.State.JULY = 6;
 
-/**For Location. 
-/* WARNING! Locations must be listed in reverse order so that 'nextLocation' is  defined. 
-/*          Ex: Kansas river crossing must exist before Independence can say Kansas river corssing is its next location. 
-* */
+// For Location types
+App.State.ROCK = "Rock";
+App.State.FORT = "Fort";
+App.State.LANDMARK = "Landmark";
+App.State.CROSSING = "Crossing";
+
+// For Location. 
+/** WARNING! Locations must be listed in reverse order so that 'nextLocation' is  defined. 
+*          Ex: Kansas river crossing must exist before Independence can say Kansas river corssing is its next location. 
+**/
 // TODO : Other locations (last location first)
 // App.State. = "";
 // App.State.INDEPENDENCE_ROCK = { name: "Independence Rock", nextLocation: , distance: 830 };
-App.State.FORT_LARAMIE = { name: "Fort Laramie", nextLocation: App.State.INDEPENDENCE_ROCK, distance: 640 };
-App.State.CHIMNEY_ROCK = { name: "Chimney Rock", nextLocation: App.State.FORT_LARAMIE, distance: 554 };
-App.State.FORT_KEARNEY = { name: "Fort Kearney", nextLocation: App.State.CHIMNEY_ROCK, distance: 304 };
-App.State.BIG_BLUE_RIVER_CROSSING = { name: "Big Blue River Crossing", nextLocation: App.State.FORT_KEARNEY, distance: 185 }
-App.State.KANSAS_RIVER_CROSSING = { name: "Kansas River Crossing", nextLocation: App.State.BIG_BLUE_RIVER_CROSSING, distance: 102 };
-App.State.INDEPENDENCE = { name: "Independence", nextLocation: App.State.KANSAS_RIVER_CROSSING, distance: 0 }
+App.State.FORT_LARAMIE = { name: "Fort Laramie", nextLocation: App.State.INDEPENDENCE_ROCK, distance: 640, type: App.State.FORT };
+App.State.CHIMNEY_ROCK = { name: "Chimney Rock", nextLocation: App.State.FORT_LARAMIE, distance: 554, type: App.State.ROCK };
+App.State.FORT_KEARNEY = { name: "Fort Kearney", nextLocation: App.State.CHIMNEY_ROCK, distance: 304, type: App.State.FORT };
+App.State.BIG_BLUE_RIVER_CROSSING = { name: "Big Blue River Crossing", nextLocation: App.State.FORT_KEARNEY, distance: 185, type: App.State.CROSSING }
+App.State.KANSAS_RIVER_CROSSING = { name: "Kansas River Crossing", nextLocation: App.State.BIG_BLUE_RIVER_CROSSING, distance: 102, type: App.State.CROSSING };
+App.State.INDEPENDENCE = { name: "Independence", nextLocation: App.State.KANSAS_RIVER_CROSSING, distance: 0, type: App.State.FORT }
 
 
 // Initialize the state with a given state

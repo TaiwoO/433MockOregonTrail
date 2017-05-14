@@ -39,11 +39,9 @@ App.Animation.step = function (pace) {
         // Arrived at the distination when the cart has reached to far left side
         if (App.Animation.cartPosition >= width) {
 
-            // override milesTraveled, ensuring that the player doesn't travel past the next location
-            App.State.setMilesTraveled(futureLandmark.distance);
             App.Animation.atDestination = true;
             // App.Animation.reset();
-            console.log("at destination")
+            console.log("Reached destination!")
         } else {
 
             // Pace must be scaled to match a 400 width frame.
@@ -60,9 +58,13 @@ App.Animation.step = function (pace) {
             // move the cart
             cart.style.right = App.Animation.cartPosition + 'px';
 
-            App.State.addMilesTraveled(pace);
-
-            // console.log("travelling....")
+            // Ensure that the player doesn't travel past the next location.
+            if ((App.State.getMilesTraveled() + pace) > futureLandmark.distance) {
+                App.State.setMilesTraveled(futureLandmark.distance);
+            }
+            else {// player hasn't reached or gone past the landmark
+                App.State.addMilesTraveled(pace);
+            }
         }
     })
 }
