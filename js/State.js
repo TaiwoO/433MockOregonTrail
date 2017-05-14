@@ -162,7 +162,7 @@ App.State.addDay = function (days) {
 
 App.State.setLocation = function (location) {
     this.location = location;
-    console.log("set location to: ", this.location);
+    console.log("set location to: ", this.location.name);
 
     // When the location changes so does the prices
     App.State.updatePrices();
@@ -255,8 +255,12 @@ App.State.setMoney = function (money) {
  * */
 
 App.State.setPriceOxen = function (price) {
-    this.priceFood = price;
+    this.priceOxen = price;
     console.log("set price of oxen to", price)
+}
+App.State.setPriceFood = function (price) {
+    this.priceFood = price;
+    console.log("set price of food to", price)
 }
 App.State.setPriceCloths = function (price) {
     this.priceCloths = price;
@@ -378,7 +382,7 @@ App.State.getPaceDistance = function () {
             return 23;
             break;
         case App.State.GRUELING:
-            return 33;
+            return 30;
             break;
 
     }

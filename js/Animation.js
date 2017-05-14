@@ -7,13 +7,12 @@
  *      far right of the screen and point b is the far left (where the landmark is)
  *      
  * OVERVIEW: 
- *      The animations should consist of moving a cart in incrimental steps 
- *      etc ....
- *      A single step.
+ *      The animations should consist of moving a cart in a single incrimental steps 
+ *      
  * 
  * FUNCTIONALITY:
+ *      - Maintains the state of the cart in the game.
  *      - Controls cart movement
- *      - Positions cart at correct position
  *      - Knows when at destination
  *      - etc....  
  */
@@ -76,6 +75,6 @@ App.Animation.isAtDestination = function () {
 App.Animation.reset = function () {
     this.cartPosition = 0; // cart position from 
     this.atDestination = false;
-    this.distanceToTravel = 0;
+    // this.distanceToTravel = 0;
 }
 

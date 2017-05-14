@@ -568,8 +568,8 @@ App.Displayer.showDisplay_MainDisplay = function () {
                 <li> Change food ration </li>
                 <li> Stop to rest</li>
                 <li> Attempt to trade</li>
-                <li> Talk to people</li>
-                <li> Buy supplies</li>
+                <li id="talk"> Talk to people</li>
+                <li id="buy"> Buy supplies</li>
             </ol>
             <p>What is your choice? <input type="number" id="input" name="input" min="0" max="9"></p>
             
@@ -589,11 +589,22 @@ App.Displayer.showDisplay_MainDisplayTravel = function () {
         <img id="object">
         <img src="img/Cart.jpg" id="cart">
     </div>
-    <div id="grass"></div>
 
-	<table id="trailStatus">
+    <!-- Ensure that the cart is drawn at the correct position -->
+    <script> 
+        var cart = document.getElementById("cart");
+        cart.style.right = App.Animation.cartPosition + 'px';
+    </script>
+
+    <div id="grass">
+        <div id="prompt-for-distance" class="prompt" hidden>
+            <p> From <span id="location"></span> it is <span id="miles"></span> miles to the <span id="next-location"></span> </p>
+        </div>
+    </div>
+    
+    <table id="trailStatus" class="bg-white ">
 		<tr>
-			<th colspan="2" class="below"> Press SPACE to size up the situation </th>
+			<th colspan="2" class="prompt"> Press ENTER to size up the situation </th>
 		</tr>
 		<tr>
 			<td> Date: </td>
@@ -619,6 +630,9 @@ App.Displayer.showDisplay_MainDisplayTravel = function () {
 			<td id="totalMiles"> </td>
 		</tr>
 	</table>
+    
+    <p id="prompt-spacebar" class="prompt" hidden>Press SPACE BAR to continue</p>            
+
             `
         );
     });

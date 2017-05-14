@@ -34,6 +34,8 @@ App.Game.init = function () {
         wheel: 0
     }
 
+    this.isTraveling = false;// for when player is on the trail
+
     // for keeping track of a journey from one landmark to the other
     // this.
 
@@ -647,10 +649,17 @@ App.Game.actionFor_MainDisplay = function () {
         $("#pace").text(condition.pace);
         $("#ration").text(condition.ration);
 
+        // hide talk and buy option when user is on the road or isn't at a Fort
+        if (App.Game.isTraveling == true || App.State.getLocation().type != App.State.FORT) {
+            $("#talk").hide();
+            $("#buy").hide();
+        }
+
         $("#input").focus()
         $("#input").keyup(function (keypressed) {
             if (keypressed.which === 13) {
-                switch (parseInt($("#input").val())) {
+                let input = parseInt($("#input").val())
+                switch (input) {
                     case 1:
                         App.Game.handleActionBasedOnDisplayNum(App.Displayer.MAIN_DISPLAY_TRAVEL);
                         break;
@@ -672,10 +681,10 @@ App.Game.actionFor_MainDisplay = function () {
                     case 7:
                         App.Game.handleActionBasedOnDisplayNum(App.Displayer.MAIN_DISPLAY_TRADE);
                         break;
-                    case 8:
+                    case 8: // TODO: allow this option if location is a Fort and not traveling. 
                         App.Game.handleActionBasedOnDisplayNum(App.Displayer.MAIN_DISPLAY_TALK);
                         break;
-                    case 9:
+                    case 9: // TODO: allow this option if location is a Fort and not traveling. Leave for now as a cheat :)
                         App.Game.handleActionBasedOnDisplayNum(App.Displayer.MAIN_DISPLAY_PURCHASE);
                         break;
 
@@ -690,49 +699,74 @@ App.Game.actionFor_MainDisplay = function () {
 //(MAIN_DISPLAY_TRAVEL)
 App.Game.actionFor_MainDisplayTravel = function () {
 
-    // Display appropriate landmark object according to next location
-    let currentLocation = App.State.getLocation(); // a location object
-    let nextLocationObject = App.Game.getNextLocationObject(currentLocation);
-
-    // var distanceToTravel = App.Game.getDistanceToNextLocation();
-
+    // Get appropriate landmark object according to next location;
+    let nextLocationObject = App.Game.getNextLocationObject(App.State.getLocation());
 
     $(function () {
 
         // display the landmark object. This is the place we are headed to
         $("#object").attr("src", nextLocationObject)
 
-        let pace = App.State.getPaceDistance();
+        // Don't show the distance prompt if user is already traveling
+        if (App.Game.isTraveling) {
+            startTravelCycle();
+        }
+        else {
+            $("#prompt-for-distance").show(); // displaying the distance from one point to the other
+            $("#prompt-spacebar").show();
+            $("#location").text(App.State.getLocation().name);
+            $("#miles").text(App.Game.getLandmarkDistance());
+            $("#next-location").text(App.State.getLocation().nextLocation.name);
 
+            $(document).keyup(function (keypressed) {
 
-        // step
-        // consume food
-        // increase day
-        // trigger event
-        // update status box
-        let travelCycle = setInterval(function () {
-            if (App.Animation.isAtDestination()) // at next landmark
-                clearInterval(travelCycle)
-            else {
-                App.Animation.step(pace);
-                App.State.eatFood();
-                App.State.addDay();
-            }
+                // User singnals to start the journey
+                if (keypressed.which == 32) {
+                    $(document).off("keyup"); // no more pressing space
+                    $("#prompt-for-distance").hide(); // no more showing the distance
+                    $("#prompt-spacebar").hide(); // no more showing prompt to press space
+                    startTravelCycle();
+                    
+                }
+            })
+        }
 
-            updateStatusBox();
-        }, 700);
+        function startTravelCycle() {
+            App.Game.isTraveling = true;
 
-        // User singnals to leave the journey
-        $(document).keyup(function (keypressed) {
-            // 32 is Space bar
-            if (keypressed.which == 32) {
-                // Stop the travel cycle
-                clearInterval(travelCycle)
-                $(document).off("keyup");
+            // Begin the travel cycle
+            let travelCycle = setInterval(function () {
 
-                App.Game.handleActionBasedOnDisplayNum(App.Displayer.MAIN_DISPLAY)
-            }
-        })
+                // Reached the destination
+                if (App.Animation.isAtDestination()) {
+                    clearInterval(travelCycle) // stop travel cycle
+                    App.State.setLocation(App.State.getLocation().nextLocation); // update location
+                    App.Animation.reset();
+                    App.Game.isTraveling = false;
+                }
+
+                else {
+                    App.Animation.step(App.State.getPaceDistance());
+                    App.State.eatFood();
+                    App.State.addDay();
+                    // TODO: trigger event
+                    updateStatusBox();
+                }
+            }, 700);
+
+            // Begin listening for the enter key. 
+            $(document).keyup(function (keypressed) {
+
+                // User singnals to leave the journey
+                if (keypressed.which == 13) {
+                    // Stop the travel cycle
+                    clearInterval(travelCycle)
+                    $(document).off("keyup");
+
+                    App.Game.handleActionBasedOnDisplayNum(App.Displayer.MAIN_DISPLAY)
+                }
+            })
+        }
 
         function updateStatusBox() {
             // $("#nextLandmark").text(App.Animation.);
@@ -1090,6 +1124,7 @@ App.Game.actionFor_MainDisplayPurchase = function () {
 
 // ============================ HELPER FUNCTIONS ===================================
 
+
 // Return the total price of items in the shopping cart
 App.Game.getshoppingCartTotal = function () {
     var total = 0.0;
@@ -1148,7 +1183,7 @@ App.Game.getNextLocationObject = function (currentLocation) {
     }
 }
 
-// The length from the beggining of one location to the next landmark
+// Distance to next location from the player's current position
 App.Game.getDistanceToNextLocation = function () {
     var distanceTraveled = App.State.getMilesTraveled();
     var currentLocation = App.State.getLocation();
@@ -1157,6 +1192,14 @@ App.Game.getDistanceToNextLocation = function () {
     return nextLocation.distance - distanceTraveled;
 }
 
+// Distance to the next landmark from the current landmark
+App.Game.getLandmarkDistance = function () {
+    var currentLandmark = App.State.getLocation()
+    var futureLandmark = currentLandmark.nextLocation;
+
+    return futureLandmark.distance - currentLandmark.distance;
+
+}
 
 //Stringify's relevant playerData (don't want just App.State or Game, its too much info)
 App.Game.StringifyPlayerData = function () {
