@@ -1,0 +1,79 @@
+"use strict"
+
+/**
+ * SUMMARY: 
+ *      Handels animations for the traveling display.
+ *      Get the player from point a to point b where point a is the 
+ *      far right of the screen and point b is the far left (where the landmark is)
+ *      
+ * OVERVIEW: 
+ *      The animations should consist of moving a cart in incrimental steps 
+ *      etc ....
+ *      A single step.
+ * 
+ * FUNCTIONALITY:
+ *      - Controls cart movement
+ *      - Positions cart at correct position
+ *      - Knows when at destination
+ *      - etc....  
+ */
+
+App.Animation = {}
+
+App.Animation.init = function () {
+    this.cartPosition = 0; // cart position from 
+    this.atDestination = false;
+}
+
+// moves the cart a certain distance
+App.Animation.step = function (pace) {
+    $(function () {
+
+        var cart = document.getElementById("cart");
+        var width = 500 - 100; //#container width - (cart width + river width) has to be hardcoded. style.width returns "500px"
+
+        var currentLandmark = App.State.getLocation()
+        var futureLandmark = currentLandmark.nextLocation;
+        var distanceBetweenLandmarks = futureLandmark.distance - currentLandmark.distance;
+
+        // Arrived at the distination when the cart has reached to far left side
+        if (App.Animation.cartPosition >= width) {
+
+            // override milesTraveled, ensuring that the player doesn't travel past the next location
+            App.State.setMilesTraveled(futureLandmark.distance);
+            App.Animation.atDestination = true;
+            // App.Animation.reset();
+            console.log("at destination")
+        } else {
+
+            // Pace must be scaled to match a 400 width frame.
+            // Equation: (width/distance to next location) * pace = the incremental distance on the frame.
+            let scaledPace = parseInt((width / distanceBetweenLandmarks) * pace);
+
+            // console.log(">>>>>>>>>>>>>>>>", scaledPace);
+            App.Animation.cartPosition += scaledPace;
+
+            // don't go over width(left side of the frame)
+            if (App.Animation.cartPosition > width) {
+                App.Animation.cartPosition = width;
+            }
+            // move the cart
+            cart.style.right = App.Animation.cartPosition + 'px';
+
+            App.State.addMilesTraveled(pace);
+
+            // console.log("travelling....")
+        }
+    })
+}
+
+App.Animation.isAtDestination = function () {
+    return this.atDestination;
+}
+
+App.Animation.reset = function () {
+    this.cartPosition = 0; // cart position from 
+    this.atDestination = false;
+    this.distanceToTravel = 0;
+}
+

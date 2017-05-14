@@ -17,12 +17,21 @@
 
 App.Displayer = {}
 
+/** 
+ * File addresses of Landmarks in the game
+ **/
+App.Displayer.FORT = "img/Fort.jpg"
+App.Displayer.RIVER = "img/River.jpg"
+App.Displayer.ROCK = "img/Rock.jpg"
 
-/** Indexes of the pages on the app.**/
+
+/** 
+ * Indexes of the pages on the app.
+ **/
 
 // Part 1: Setting up player
 // __________________________
-App.Displayer.CHOOSE_PROFESSION = 1
+App.Displayer.CHOOSE_PROFESSION = 1;
 App.Displayer.PROFESSION_DIFFERENCES = 2;
 App.Displayer.CHOOSE_LEADER_NAME = 3;
 App.Displayer.CHOOSE_PARTY_NAMES = 4;
@@ -177,6 +186,8 @@ App.Displayer.showDisplayNum = function (displayNumber) {
         default:
             console.log(" >>POSSIBLE ERROR in Displayer.js<< No Display Number:", displayNumber)
         // TODO All of the display cases
+
+
     }
 }
 
@@ -572,7 +583,14 @@ App.Displayer.showDisplay_MainDisplayTravel = function () {
     $(document).ready(function () {
         $("#main").html(
             `
-	//Add image of trail
+	<!--Add image of trail-->
+    
+    <div id="trail-bg">
+        <img id="object">
+        <img src="img/Cart.jpg" id="cart">
+    </div>
+    <div id="grass"></div>
+
 	<table id="trailStatus">
 		<tr>
 			<th colspan="2" class="below"> Press SPACE to size up the situation </th>
@@ -593,7 +611,7 @@ App.Displayer.showDisplay_MainDisplayTravel = function () {
 			<td id="currentFood"> </td>
 		</tr>
 		<tr>
-			<td> Next Landmark </td>
+			<td> Next Landmark: </td>
 			<td id="nextLandmark"> </td>
 		</tr>
 		<tr>

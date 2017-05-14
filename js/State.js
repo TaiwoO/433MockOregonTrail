@@ -30,9 +30,9 @@ App.State.MEAGER = "Meager";
 App.State.BARE_BONES = "Bare bones";
 
 // For Pace
-App.State.GRUELING = "Grueling";
-App.State.STRENUOUS = "Strenuous";
-App.State.STEADY = "Steady";
+App.State.GRUELING = "Grueling";//33
+App.State.STRENUOUS = "Strenuous";//24
+App.State.STEADY = "Steady";// 18
 
 // For Weather
 App.State.WARM = "Warm";
@@ -51,8 +51,19 @@ App.State.MAY = 4;
 App.State.JUNE = 5;
 App.State.JULY = 6;
 
-// For Location
-App.State.KANSAS_RIVER_CROSSING = "Kansas River Crossing";
+/**For Location. 
+/* WARNING! Locations must be listed in reverse order so that 'nextLocation' is  defined. 
+/*          Ex: Kansas river crossing must exist before Independence can say Kansas river corssing is its next location. 
+* */
+// TODO : Other locations (last location first)
+// App.State. = "";
+// App.State.INDEPENDENCE_ROCK = { name: "Independence Rock", nextLocation: , distance: 830 };
+App.State.FORT_LARAMIE = { name: "Fort Laramie", nextLocation: App.State.INDEPENDENCE_ROCK, distance: 640 };
+App.State.CHIMNEY_ROCK = { name: "Chimney Rock", nextLocation: App.State.FORT_LARAMIE, distance: 554 };
+App.State.FORT_KEARNEY = { name: "Fort Kearney", nextLocation: App.State.CHIMNEY_ROCK, distance: 304 };
+App.State.BIG_BLUE_RIVER_CROSSING = { name: "Big Blue River Crossing", nextLocation: App.State.FORT_KEARNEY, distance: 185 }
+App.State.KANSAS_RIVER_CROSSING = { name: "Kansas River Crossing", nextLocation: App.State.BIG_BLUE_RIVER_CROSSING, distance: 102 };
+App.State.INDEPENDENCE = { name: "Independence", nextLocation: App.State.KANSAS_RIVER_CROSSING, distance: 0 }
 
 
 // Initialize the state with a given state
@@ -86,14 +97,14 @@ App.State.init = function (state) {
     this.leader = state.leader || "";
     this.job = state.job || "";
     this.party = state.party || []; // an array of names
-    this.location = state.location || App.State.KANSAS_RIVER_CROSSING;
+    this.location = state.location || App.State.INDEPENDENCE;
     this.date = state.date || new Date("March 1, 1848");
     this.milesTraveled = state.milesTraveled || 0;
 };
 
 /**================================================================
  *                           SETTERS / UPDATERS
- * ================================================================*/ 
+ * ================================================================*/
 
 /**  
  * For states
@@ -133,28 +144,22 @@ App.State.setMonth = function (month) {
     this.date.setMonth(month)
     console.log("Set month to:", this.getMonth(), ". The current date is: ", this.date)
 }
-// TODO:
-// App.State.addDay = function() {
 
-// }
+App.State.addDay = function (days) {
+
+    var currentDate = this.date.getDate()
+    var daysToAdd = days || 1;
+
+    this.date.setDate(currentDate + daysToAdd);
+    console.log("Added a day, date is now:", App.State.getPrettyDate());
+}
 
 App.State.setLocation = function (location) {
     this.location = location;
-    console.log("set location to: ", this.location)
-}
+    console.log("set location to: ", this.location);
 
-// updates the prices of goods based on location
-App.State.updatePrices = function () {
-
-    switch (this.location) {
-        // case App.State.KANSAS:
-        //     this.price = ???
-        //     this...= ??
-        //     this...= ??
-        //     this...= ??
-        //     this...= ??
-        //     break;
-    }
+    // When the location changes so does the prices
+    App.State.updatePrices();
 }
 
 /** 
@@ -187,7 +192,7 @@ App.State.setOxen = function (val) {
 }
 App.State.addOxen = function (oxen) {
     this.oxen += val;
-    console.log("Added:", oxen,"oxen. Total oxen is now:", this.oxen);
+    console.log("Added:", oxen, "oxen. Total oxen is now:", this.oxen);
 }
 
 App.State.setFood = function (val) {
@@ -198,6 +203,21 @@ App.State.setFood = function (val) {
         this.food = 0;
     }
     console.log("set food to:", this.food);
+}
+App.State.eatFood = function () {
+
+    var currentFood = App.State.getFood();
+    switch (this.ration) {
+        case App.State.FILLING:
+            App.State.setFood(currentFood - (3 * this.party.length));
+            break;
+        case App.State.MEAGER:
+            App.State.setFood(currentFood - (2 * this.party.length));
+            break;
+        case App.State.BARE_BONES:
+            App.State.setFood(currentFood - (1 * this.party.length));
+            break;
+    }
 }
 App.State.setCloths = function (val) {
     this.cloths = val;
@@ -224,10 +244,78 @@ App.State.setMoney = function (money) {
     console.log("Set money to:", this.money);
 }
 
+/** 
+ * For Prices
+ * */
+
+App.State.setPriceOxen = function (price) {
+    this.priceFood = price;
+    console.log("set price of oxen to", price)
+}
+App.State.setPriceCloths = function (price) {
+    this.priceCloths = price;
+    console.log("set price of cloths to", price);
+}
+App.State.setPriceBait = function (price) {
+    this.priceBait = price;
+    console.log("set price of bait to", price);
+}
+App.State.setPriceWheel = function (price) {
+    this.priceWheel = price;
+    console.log("set price of wheel to", price);
+}
+App.State.setPriceAxle = function (price) {
+    this.priceAxle = price;
+    console.log("set price of axle to", price);
+}
+App.State.setPriceTongue = function (price) {
+    this.priceTongue = price;
+    console.log("set price of tongue to", price);
+}
+
+// updates the prices of goods based on location
+App.State.updatePrices = function () {
+
+    switch (this.location.name) {
+        case App.State.FORT_KEARNEY.name:
+            App.State.setPriceOxen(25)
+            App.State.setPriceFood(.25);
+            App.State.setPriceCloths(12.50);
+            App.State.setPriceBait(2.50);
+            App.State.setPriceWheel(12.50);
+            App.State.setPriceAxle(12.50);
+            App.State.setPriceTongue(12.50);
+            break;
+        case App.State.FORT_LARAMIE.name:
+            App.State.setPriceOxen(30)
+            App.State.setPriceFood(.30);
+            App.State.setPriceCloths(15);
+            App.State.setPriceBait(3);
+            App.State.setPriceWheel(15);
+            App.State.setPriceAxle(15);
+            App.State.setPriceTongue(15);
+            break;
+        //TODO: other fort prices
+    }
+}
+
+/**
+ * For Other
+ **/
+
+App.State.setMilesTraveled = function (miles) {
+    this.milesTraveled = miles;
+    console.log("Set miles traveled to", this.milesTraveled)
+}
+
+App.State.addMilesTraveled = function (miles) {
+    this.milesTraveled += miles;
+    console.log("Updated miles traveled by", miles, "milesTraveled is now", this.milesTraveled);
+}
 
 /**================================================================
  *                           GETTERS
- * ================================================================*/ 
+ * ================================================================*/
 
 /** 
  * For states
@@ -253,6 +341,16 @@ App.State.getMonth = function () {
 App.State.getDate = function () {
     return this.date;
 }
+App.State.getPrettyDate = function () {
+
+    var prettyDate = "";
+    prettyDate += App.State.getMonth() + " ";
+    prettyDate += this.date.getDate() + ", ";
+    prettyDate += this.date.getFullYear();
+
+    return prettyDate;
+}
+
 App.State.getLocation = function () {
     return this.location;
 }
@@ -261,7 +359,23 @@ App.State.getLocation = function () {
  * For condition
  * */
 App.State.getPace = function () {
+
     return this.pace;
+}
+App.State.getPaceDistance = function () {
+
+    switch (this.pace) {
+        case App.State.STEADY:
+            return 15;
+            break;
+        case App.State.STRENUOUS:
+            return 23;
+            break;
+        case App.State.GRUELING:
+            return 33;
+            break;
+
+    }
 }
 App.State.getRation = function () {
     return this.ration;
@@ -294,7 +408,7 @@ App.State.getOxen = function () {
 App.State.getFood = function () {
     return this.food;
 }
-App.State.getCloths= function () {
+App.State.getCloths = function () {
     return this.cloths;
 }
 App.State.getBait = function () {
@@ -360,9 +474,17 @@ App.State.getPrice = function () {
     }
 }
 
+/**
+ * For Other
+ * */
+
+App.State.getMilesTraveled = function () {
+    return this.milesTraveled;
+}
+
 /**================================================================
  *                           OTHER USEFUL METHODS
- * ================================================================*/ 
+ * ================================================================*/
 
 // See the state in the console nicely
 App.State.dumpState = function () {

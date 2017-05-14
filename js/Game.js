@@ -34,12 +34,18 @@ App.Game.init = function () {
         wheel: 0
     }
 
+    // for keeping track of a journey from one landmark to the other
+    // this.
+
     // Initialize the default state of of the app.
     App.State.init({})
+    // Initialize the default state of the animation.
+    App.Animation.init()
 
     // Start the game off with the first display and everything show
     // flow from then on
     App.Game.handleActionBasedOnDisplayNum(App.Displayer.CHOOSE_PROFESSION)
+
 }
 
 // Handles what to display and the action that should
@@ -386,7 +392,7 @@ App.Game.actionFor_GeneralStore = function () {
 
         // Display prices based on amount in shoppingcart and price
         //
-        $("#currentDate").text(App.State.getDate())
+        $("#currentDate").text(App.State.getPrettyDate())
         $("#priceOxen").text(App.Game.shoppingCart.oxen * App.State.getPriceOxen())
         $("#priceFood").text((App.Game.shoppingCart.food * App.State.getPriceFood()).toFixed(2))
         $("#priceClothing").text(App.Game.shoppingCart.cloths * App.State.getPriceCloths())
@@ -620,18 +626,22 @@ App.Game.actionFor_Intermediate3 = function () {
 }
 
 App.Game.actionFor_Intermediate4 = function () {
-    // $("#date").text(App.State.getDate());
-    $("#date").text(App.State.getMonth());
+
+    $(function () {
+        $("#date").text(App.State.getPrettyDate());
+    })
+
     App.Game.afterSpaceBar(App.Displayer.MAIN_DISPLAY)
 }
 
 // (MAIN_DISPLAY)
 App.Game.actionFor_MainDisplay = function () {
+
     var condition = App.State.getCondition();
 
     $(function () {
-        $("#location").text(App.State.getLocation())
-        $("#date").text(App.State.getDate())
+        $("#location").text(App.State.getLocation().name)
+        $("#date").text(App.State.getPrettyDate())
         $("#weather").text(condition.weather);
         $("#health").text(condition.health);
         $("#pace").text(condition.pace);
@@ -680,8 +690,62 @@ App.Game.actionFor_MainDisplay = function () {
 //(MAIN_DISPLAY_TRAVEL)
 App.Game.actionFor_MainDisplayTravel = function () {
 
-    // For testing purposes remember to remove
-    App.Game.afterSpaceBar(App.Displayer.MAIN_DISPLAY)
+    // Display appropriate landmark object according to next location
+    let currentLocation = App.State.getLocation(); // a location object
+    let nextLocationObject = App.Game.getNextLocationObject(currentLocation);
+
+    // var distanceToTravel = App.Game.getDistanceToNextLocation();
+
+
+    $(function () {
+
+        // display the landmark object. This is the place we are headed to
+        $("#object").attr("src", nextLocationObject)
+
+        let pace = App.State.getPaceDistance();
+
+
+        // step
+        // consume food
+        // increase day
+        // trigger event
+        // update status box
+        let travelCycle = setInterval(function () {
+            if (App.Animation.isAtDestination()) // at next landmark
+                clearInterval(travelCycle)
+            else {
+                App.Animation.step(pace);
+                App.State.eatFood();
+                App.State.addDay();
+            }
+
+            updateStatusBox();
+        }, 700);
+
+        // user leaves the journey before reaching destination
+        $(document).keyup(function (keypressed) {
+            // 32 is Space bar
+            if (keypressed.which == 32) {
+                // Stop the travel cycle
+                clearInterval(travelCycle)
+                $(document).off("keyup");
+
+                App.Game.handleActionBasedOnDisplayNum(App.Displayer.MAIN_DISPLAY)
+            }
+        })
+
+        function updateStatusBox() {
+            // $("#nextLandmark").text(App.Animation.);
+
+            $("#currentDate").text(App.State.getPrettyDate());
+            $("#currentWeather").text(App.State.getWeather());
+            $("#currentHealth").text(App.State.getHealth());
+            $("#currentFood").text(App.State.getFood());
+            $("#nextLandmark").text(App.Game.getDistanceToNextLocation());
+            $("#totalMiles").text(App.State.getMilesTraveled());
+        }
+    });
+
 }
 
 //(MAIN_DISPLAY_SUPPLIES)
@@ -1068,6 +1132,37 @@ App.Game.afterSpaceBar = function (displayNum) {
         })
     });
 }
+
+// Gives the image address of the next location's landmark object
+App.Game.getNextLocationObject = function (currentLocation) {
+
+    switch (currentLocation) {
+        // Landmark after Independence is a river
+        case App.State.INDEPENDENCE:
+            return App.Displayer.RIVER;
+        case App.State.KANSAS_RIVER_CROSSING:
+            return App.Displayer.RIVER;
+        case App.State.BIG_BLUE_RIVER_CROSSING:
+            return App.Displayer.FORT;
+        case App.State.FORT_KEARNEY:
+            return App.Displayer.ROCK;
+        case App.State.CHIMNEY_ROCK:
+            return App.Displayer.FORT;
+        case App.State.FORT_LARAMIE:
+            return App.Displayer.ROCK;
+        // TODO: Other location
+    }
+}
+
+// The length from the beggining of one location to the next landmark
+App.Game.getDistanceToNextLocation = function () {
+    var distanceTraveled = App.State.getMilesTraveled();
+    var currentLocation = App.State.getLocation();
+    var nextLocation = currentLocation.nextLocation;
+
+    return nextLocation.distance - distanceTraveled;
+}
+
 
 //Stringify's relevant playerData (don't want just App.State or Game, its too much info)
 App.Game.StringifyPlayerData = function () {
