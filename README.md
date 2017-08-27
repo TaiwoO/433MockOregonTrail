@@ -1,3 +1,6 @@
+
+Live Site: https://oregon-trail.herokuapp.com/index.html
+
 Project 2
 
 Due: May 13rd by 11:59 PM EDT
